@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>mochilog</title>
+    <link>/</link>
+    <description>Recent content on mochilog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2021, all rights reserved.</copyright>
+    <lastBuildDate>Mon, 22 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hello World!!!</title>
+      <link>/posts/hello-world/</link>
+      <pubDate>Mon, 22 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/hello-world/</guid>
+      <description>
+        
+          &lt;p&gt;サイトをやっとこさ作りました。
+なんでも書きなぐるような場所としてはScrapBoxを愛用していたけど、ブログとして独自ドメインで公開するなら自作のブログかなということで、重い腰をあげました😅&lt;/p&gt;
+&lt;h2 id=&#34;hugoにした理由&#34;&gt;hugoにした理由&lt;/h2&gt;
+&lt;p&gt;転職、コロナ禍と目まぐるしく生活が変わったこの1ねん。ブログ、書かなきゃなと思いつつ、書いてませんでした。最近思っていたこととして、&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;外部のブログサービスで書くのが気乗りしなくなった&lt;/li&gt;
+&lt;li&gt;せっかくドメイン持ってるし使いたい&lt;/li&gt;
+&lt;li&gt;ScrapBoxがメモ程度のことから日々のことまでグチャグチャしてきた&lt;/li&gt;
+&lt;li&gt;ScrapBoxで時系列追いづらくなってきた&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;個人的にはWordPressでもいいかなと思っていたんですけど、わざわざデータベース使わなくてもなぁという気持ちもあり。検討した結果hugoに決定しました。&lt;/p&gt;
+&lt;p&gt;技術的にどうというよりは、気に入ったテーマがシュッと見つかったからです。&lt;/p&gt;
+&lt;p&gt;それと管理画面とかなくて、ログインしなくていいのが良きです。&lt;/p&gt;
+&lt;p&gt;サイト用のアイコンとかも適当に作って用意して、一気に数時間で作りました😆&lt;/p&gt;
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>
