@@ -1,0 +1,21 @@
+name: deploy to remote
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@3.0.0
+        with:
+          ftp-server: ${{ secrets.HOST }}
+          ftp-username: ${{ secrets.USERNAME }}
+          ftp-password: ${{ secrets.PASSWORD }}
+          git-ftp-args: --remote-root ${{ secrets.REMOTE_ROOT }}
+          local-dir: public
