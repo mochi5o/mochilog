@@ -1,21 +1,42 @@
-name: deploy to remote
+# name: deploy to remote
 
-on:
-  push:
-    branches:
-      - master
+# on:
+#   push:
+#     branches:
+#       - master
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v1
 
-      - name: Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@3.0.0
-        with:
-          ftp-server: ${{ secrets.HOST }}
-          ftp-username: ${{ secrets.USERNAME }}
-          ftp-password: ${{ secrets.PASSWORD }}
-          git-ftp-args: --remote-root ${{ secrets.REMOTE_ROOT }}
-          local-dir: public
+#       - name: Deploy via FTP
+#         uses: SamKirkland/FTP-Deploy-Action@3.0.0
+#         with:
+#           ftp-server: ${{ secrets.HOST }}
+#           ftp-username: ${{ secrets.USERNAME }}
+#           ftp-password: ${{ secrets.PASSWORD }}
+#           git-ftp-args: --remote-root ${{ secrets.REMOTE_ROOT }}
+#           local-dir: public
+# jobs:
+#     build:
+#         name: build hugo
+#         runs-on: ubuntu-latest
+#         steps:
+#             - name: checkout repo
+#               uses: actions/checkout@v1
+#               with:
+#                 submodules: true
+#             - name: setup hugo
+#               uses: peaceiris/actions-hugo@v2
+#               with:
+#                 hugo-version: 'latest'
+#             - name: build hugo pages
+#               run: |
+#                 cd develop/sampleWeb && hugo #Hugoプロジェクトパスへ移動＆ビルド
+#             - name: Archive Production Artifact
+#               uses: actions/upload-artifact@master
+#               with:
+#                 name: public
+#                 path: public
