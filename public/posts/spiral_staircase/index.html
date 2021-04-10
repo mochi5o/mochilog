@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en" data-figures="" class="page">
   <head>
-<title>Hugoのテーマのバグを踏んだ | mochilog</title>
+<title>らせん階段 | mochilog</title>
 <meta charset="utf-8">
 <meta name="generator" content="Hugo 0.80.0" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -17,15 +17,19 @@
 <meta property="og:locale" content="en" />
 
 <meta property="og:type" content="article">
-<meta name="description" content="めちゃくちゃ軽微なバグを踏んだので、いい機会だと思ってドキドキしながら初のバグレポートをした話。
-軽微すぎるんですが、シュッと直せるほどの力も余裕もなかったので報告だけです。">
+<meta name="description" content="この一年、とにかく頭の中にインデックスを貼るという意味合いをこめて、おすすめされた本とか気になった本をどんどん読む、というのをやっている。
+わからなくてもいい、とにかく読む。
+Don&#39;t think, feel.
+もともと読書は好きなのだが、いわゆる技術書と呼ばれるジャンルの本との向き合い方については、うまい方ではない …">
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@mochi5o_maki">
-<meta name="twitter:title" content="Hugoのテーマのバグを踏んだ" />
-<meta property="og:url" content="/posts/hugo_thema/" />
-<meta property="og:title" content="Hugoのテーマのバグを踏んだ" />
-<meta property="og:description" content="めちゃくちゃ軽微なバグを踏んだので、いい機会だと思ってドキドキしながら初のバグレポートをした話。
-軽微すぎるんですが、シュッと直せるほどの力も余裕もなかったので報告だけです。" />
+<meta name="twitter:title" content="らせん階段" />
+<meta property="og:url" content="/posts/spiral_staircase/" />
+<meta property="og:title" content="らせん階段" />
+<meta property="og:description" content="この一年、とにかく頭の中にインデックスを貼るという意味合いをこめて、おすすめされた本とか気になった本をどんどん読む、というのをやっている。
+わからなくてもいい、とにかく読む。
+Don&#39;t think, feel.
+もともと読書は好きなのだが、いわゆる技術書と呼ばれるジャンルの本との向き合い方については、うまい方ではない …" />
 <meta property="og:image" content="/images/thumbnail.png" />
 <link rel="icon" type="image/png" sizes="32x32" href='/icons/favicon-32x32.png'>
 <link rel="icon" type="image/png" sizes="16x16" href='/icons/favicon-16x16.png'>
@@ -33,7 +37,7 @@
 <link rel="mask-icon" href='/safari-pinned-tab.svg' color="#5bbad5">
 <meta name="msapplication-TileColor" content="#da532c">
 <meta name="theme-color" content="#ffffff">
-<link rel="canonical" href="/posts/hugo_thema/">
+<link rel="canonical" href="/posts/spiral_staircase/">
 
     
 
@@ -102,44 +106,45 @@
 
 <div class="grid-inverse wrap content">
     <article class="post_content">
-        <h1 class="post_title">Hugoのテーマのバグを踏んだ</h1><div class="post_meta">
+        <h1 class="post_title">らせん階段</h1><div class="post_meta">
   
     <svg class="icon">
   <use xlink:href="#calendar"></use>
 </svg>
     <span class="post_date">
-      Feb 24, 2021</span>
-      <a href='/tags/hugo' title="hugo" class="post_tag button button_translucent">hugo
-      </a>
-      <a href='/tags/oss' title="oss" class="post_tag button button_translucent">oss
+      Apr 10, 2021</span>
+      <a href='/tags/%E9%9B%91%E8%A8%98' title="雑記" class="post_tag button button_translucent">雑記
       </a>
 </div>
 
         
 <div class="post_share">
-    <a href="/posts/hugo_thema/" title="Copy Link" class="link link_yank">
+    <a href="/posts/spiral_staircase/" title="Copy Link" class="link link_yank">
         <svg class="icon">
   <use xlink:href="#copy"></use>
 </svg>
     </a>
 </div>
         
-        <p>めちゃくちゃ軽微なバグを踏んだので、いい機会だと思ってドキドキしながら初のバグレポートをした話。
-軽微すぎるんですが、シュッと直せるほどの力も余裕もなかったので報告だけです。</p>
-<h3 id="選択したテーマ">選択したテーマ</h3>
-<p>clarityというテーマを選択。</p>
-<p><a href="https://themes.gohugo.io/theme/hugo-clarity/">https://themes.gohugo.io/theme/hugo-clarity</a></p>
-<p>hugoは手元でサーバー立ち上げて確認しながら書けるし、mdで書くので基本的にすごく簡単。
-だったはずが、ひと通りメニューとか整理しおわって「だいたいいいかなー」ってなったタイミングで、あることに気づ。</p>
-<p>なんか、ブログ本文の最後に<strong>true</strong>って謎の文字列？！</p>
-<p>テーマ？それともhugoの設定？というのがパッと分からず「もしかしたらローカル環境でだけ表示される変数なのか…」とかいろいろ考えを巡らせたが、結局テーマ側のバグっぽい。</p>
-<p>どうやら<a href="https://github.com/chipzoller/hugo-clarity/blob/master/layouts/_default/single.html#L26-L36">この辺り</a>のコードがtrueという文字列を出力してしまってるようで、コメント欄を使う予定もないので、全部バッサリ削除することに。</p>
-<p>テーマのカスタマイズ方法は<code>themas/hugo-clarity/layouts</code>の下にあるファイルを、<code>layouts</code>ディレクトリで上書きするということだったので、<code>layouts/_default/single.html</code>を新規作成して、不要な箇所を削除してファイルを設置すると、きれいに<strong>true</strong>が消えてくれた。</p>
-<p>ちなみに、2/23時点では<a href="https://themes.gohugo.io/theme/hugo-clarity/">テーマのDemoサイト</a>でも同様の文字列が出現しているのだけど、同じバグに悩んでる人がいなかったみたいなので直近のコミットで入ったバグをたまたま踏んだのかも…</p>
-<p>ちょうど<a href="https://github.com/chipzoller/hugo-clarity/commit/f368af7333b1eece63925aa0a08bae553e980211#diff-b2ff2a8d1f2a8a15c65288757c8b9acde7bec0ef491acb8048f1ddb61985cc41">3日前のこのコミット</a>だった！</p>
-<p>ということで<a href="https://github.com/chipzoller/hugo-clarity/issues/145">バグレポートのissue</a>を投げてみました。</p>
-<p>OSSにissue投げるの初めてで緊張。
-コメントもらえるかなぁ…と思って朝起きたらすぐ修正してくれてました🙌</p>
+        <p>この一年、とにかく頭の中にインデックスを貼るという意味合いをこめて、おすすめされた本とか気になった本をどんどん読む、というのをやっている。</p>
+<p>わからなくてもいい、とにかく読む。</p>
+<p><code>Don't think, feel.</code></p>
+<p>もともと読書は好きなのだが、いわゆる技術書と呼ばれるジャンルの本との向き合い方については、うまい方ではないと思っている。</p>
+<p>手を動かす系の本は言われたとおりに動かしてはわかったような気分になるだけだし、理論や仕組みの解説などの読み物ベースのものも「ふーん」くらいの感じで特に気になるところ以外は孫引きしたりせずつらつらと読み進めている。</p>
+<p>私は新しいことを知っていくのが純粋に楽しいので、頭からおしりまで全部読みたくなってしまい、「効率の良い読書」はできていない。しかも「〜ができるようになりたい」というモチベーションで読んでいるとは限らないので、読んだけど使わない内容は結構忘れてたりする。いまのところ、読まないよりマシだろうと思って続けている、</p>
+<p>ある本で「ふむふむ」と読んでいてたことが別の本とか実務の中で出てきて、「あのときのアレか！」となる瞬間が楽しい。技術はらせん階段のように同じようなところを高さを変えながら何度も通る、みたいな話をどっかで聞いたけど、それと似ている。</p>
+<p>私の知識も同じようなところを何度も通ってて、でも高さ（＝理解度）は微妙に変わっていて、ぐるぐるちょっとずつ、登っていってる感じ。</p>
+<p>ただし実際登っていってるかってのは主観でしかない。もしかしたら同じ高さをぐるぐるしていることもあるかも。</p>
+<p>横を見れば私より若くてキャリアがあり、才能（とくくってしまうのは失礼かもしれないが）もある人がたくさんいる。
+しかもその人達も私以上に学んでいるという状況。</p>
+<p>私はもともと事務系の職種だった。そういった一般職にはない、エンジニアのある種アスリートっぽさというか職人っぽさというか、技術に対して突き詰めていくところはアツいなと思ってるし、俄然燃えるポイントである。</p>
+<p>エンジニア全員がそうあるべきとは全く思わない。けど私はそういう人たちをかっこいいと思ってしまうし、憧れてしまうので、それと比べたときの自らの遅い歩みに絶望すること数しれず。周りと比べない、と常に言い聞かせている。</p>
+<p>「〜ができるようになりたい」という欲を持って本を読むことより「〜が知りたい」という事が多いので、いまは自分の中で実利を求めているというより楽しいからやるっていう割合が高い。だから続けているのだと思う。</p>
+<p>とにかくずっと学ばなきゃいけないってのは大変でもあるし、面白くもある。私は「学ぶ」ことが好きなんだと思う。</p>
+<p>一方でいわゆる「研究」という分野には私は向いていない。それは大学で痛感した。なので職業エンジニアが最適解なのである。</p>
+<p>ただいつまでもインデックスばっかり貼ってりゃいいわけじゃないのは当然で、このさき本を読む目的もだんだん変わっていく必要はある。</p>
+<p>本を読む目的について、なんとなくつらつらと考えたことを書いてみた。
+たとえ効率悪くても、らせん階段登り続けていきたいな。</p>
     </article>
 <aside class="sidebar">
   <section class="sidebar_inner">
@@ -152,10 +157,10 @@
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
       <li>
-        <a href="/posts/spiral_staircase/" class="nav-link" title="らせん階段">らせん階段</a>
+        <a href="/posts/mail_header/" class="nav-link" title="メールヘッダーがおもしろい">メールヘッダーがおもしろい</a>
       </li>
       <li>
-        <a href="/posts/mail_header/" class="nav-link" title="メールヘッダーがおもしろい">メールヘッダーがおもしろい</a>
+        <a href="/posts/hugo_thema/" class="nav-link" title="Hugoのテーマのバグを踏んだ">Hugoのテーマのバグを踏んだ</a>
       </li>
       <li>
         <a href="/posts/hello-world/" class="nav-link" title="Hello hugo!!!">Hello hugo!!!</a>
