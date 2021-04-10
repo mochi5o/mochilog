@@ -4,7 +4,7 @@ date: 2021-02-22T23:22:42+09:00
 tags:
   - hugo
   - ssg
-categories: "日々のこと"
+categories: "blog"
 ---
 
 自分のサイトをやっとこさ作りました:sweat_smile:

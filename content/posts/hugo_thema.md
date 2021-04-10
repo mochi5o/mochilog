@@ -6,7 +6,7 @@ tags: [
     "oss",
 ]
 categories: [
-    "日々のこと",
+    "blog",
 ]
 ---
 
