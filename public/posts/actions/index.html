@@ -17,15 +17,19 @@
 <meta property="og:locale" content="en" />
 
 <meta property="og:type" content="article">
-<meta name="description" content="表題の通り。 会社で問合せ内容をissue管理しているのだが、それをデータベースにして傾向分析をしたい、となった。
-スプレッドシートにissueの一覧を持ってきて、問合せの調査結果などを踏まえて事象をうまく分類していきたい。 最終的にはDatastudioにインポートしていい感じに傾向の可視化ができれば、というようなモ …">
+<meta name="description" content="表題の通り。
+会社で問合せ内容をissue管理しているのだが、それをデータベースにして傾向分析をしたい、となった。
+スプレッドシートにissueの一覧を持ってきて、問合せの調査結果などを踏まえて事象をうまく分類していきたい。
+最終的にはDatastudioにインポートしていい感じに傾向の可視化ができれば、というようなモ …">
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@mochi5o_maki">
 <meta name="twitter:title" content="Actionsで特定のラベルがついたissueをスプレッドシートで管理する" />
 <meta property="og:url" content="/posts/actions/" />
 <meta property="og:title" content="Actionsで特定のラベルがついたissueをスプレッドシートで管理する" />
-<meta property="og:description" content="表題の通り。 会社で問合せ内容をissue管理しているのだが、それをデータベースにして傾向分析をしたい、となった。
-スプレッドシートにissueの一覧を持ってきて、問合せの調査結果などを踏まえて事象をうまく分類していきたい。 最終的にはDatastudioにインポートしていい感じに傾向の可視化ができれば、というようなモ …" />
+<meta property="og:description" content="表題の通り。
+会社で問合せ内容をissue管理しているのだが、それをデータベースにして傾向分析をしたい、となった。
+スプレッドシートにissueの一覧を持ってきて、問合せの調査結果などを踏まえて事象をうまく分類していきたい。
+最終的にはDatastudioにインポートしていい感じに傾向の可視化ができれば、というようなモ …" />
 <meta property="og:image" content="/images/labeled-issue.jpg" />
 <link rel="icon" type="image/png" sizes="32x32" href='/icons/favicon-32x32.png'>
 <link rel="icon" type="image/png" sizes="16x16" href='/icons/favicon-16x16.png'>
@@ -143,10 +147,10 @@
 </span><span class="ln">2</span><span class="sd">  </span><span class="w">  </span><span class="l">(github.event.label.name == &#39;wontfix&#39;) || (github.event.label.name == &#39;bug&#39;)</span><span class="w">
 </span></code></pre></div><h3 id="日付の取得">日付の取得</h3>
 <p>アクションが実行される日時をこんなふうに取得できる。
-Tokyoにタイムゾーンを設定しておけばOK。
-これを使ってラベルがついた日時をスプレッドシート側に持っておきたかった。
-当初、ラベルのつけ外しで時間計測もできるかな？という目論見もあり、こちらに実装しているが、
-GAS側でPOSTされた日時を得ることも可能だし、今回の目的に限れば別にこの方法でなくてもどうとでもなりそう。</p>
+Tokyoにタイムゾーンを設定しておけばOK。</p>
+<p>当初はちょっと別の目的もあったので、ラベルがついた日時をスプレッドシート側に持っておきたかった。</p>
+<p>最終的な今回の目的に照らせば、別にこの方法でなくてもどうとでもなりそう。
+GAS側でPOSTされた日時を得ることも可能だし…</p>
 <div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln">1</span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Setup timezone</span><span class="w">
 </span><span class="ln">2</span><span class="w">  </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">zcong1993/setup-timezone@master</span><span class="w">
 </span><span class="ln">3</span><span class="w">  </span><span class="nt">with</span><span class="p">:</span><span class="w">
@@ -156,8 +160,8 @@ GAS側でPOSTされた日時を得ることも可能だし、今回の目的に�
 </span><span class="ln">7</span><span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">echo &#34;::set-output name=date::$(date +&#39;%Y%m%d-%H%M&#39;)&#34;</span><span class="w">
 </span></code></pre></div><h3 id="gasでスプレッドシート書き込み用のエンドポイントを用意する">GASでスプレッドシート書き込み用のエンドポイントを用意する</h3>
 <p>これも調べたら割とすぐ出てくる。
-doPostという関数が用意されてるので、そこにデータを突っ込むだけ。
-スプレッドシートからスクリプトエディタを起動して、編集→保存→デプロイする。
+doPostという関数が用意されてるので、そこにデータを突っ込むだけ。</p>
+<p>スプレッドシートからスクリプトエディタを起動して、編集→保存→デプロイする。
 すべてのユーザーに公開しないとcurlからたたけないので注意。</p>
 <p>IDEの自動保存に慣れてしまっている私は、保存を忘れて変更が反映されてないままデプロイする、というのを数回繰り返してしまった。</p>
 <div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="ln"> 1</span><span class="kd">function</span> <span class="nx">doPost</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
@@ -177,8 +181,8 @@ doPostという関数が用意されてるので、そこにデータを突っ�
 <span class="ln">15</span>
 </code></pre></div><h2 id="actionsからデータをpost">ActionsからデータをPOST</h2>
 <p>envをつかってアクションの中で使う環境変数を定義できる。
-今回テストのためにissue上にもコメントを残して、GASにもPOSTする、というのをやったのでこうなっている。
-GitHubのissueにコメントをPOSTするにはアクセストークンが必要なので別途用意して、リポジトリのsecretsに設定している。
+今回テストのためにissue上にもコメントを残して、GASにもPOSTする、というのをやったのでこうなっている。</p>
+<p>GitHubのissueにコメントをPOSTするにはアクセストークンが必要なので別途用意して、リポジトリのsecretsに設定している。
 <code>${{ secrets.ACCESS_TOKEN }}</code> という形でsecretsの値は取得できる。</p>
 <p>おなじく先程デプロイしたURLもsecretsに保存しておいて、そこに対してデータをPOSTする。</p>
 <div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln"> 1</span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Data post</span><span class="w">
@@ -202,7 +206,7 @@ GitHubのissueにコメントをPOSTするにはアクセストークンが必�
 <p>スプレッドシートに追加された。
 こちらで更に詳細な分類を入力して、Datastudioとかに突っ込んで分析に役立てることができる。
 <img src="https://user-images.githubusercontent.com/41158022/115138736-d9707180-a068-11eb-96ba-743ec4b9f6ca.png" alt="spread sheet"></p>
-
+<p><a href="https://github.com/mochi5o/issue-labeled-action">リポジトリはこちら</a></p>
     </article>
 <aside class="sidebar">
   <section class="sidebar_inner">
