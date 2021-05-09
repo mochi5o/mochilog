@@ -6,7 +6,7 @@ categories:
   - Tech
 thumbnail: "/images/labeled-issue.jpg"
 tags:
-  - Actions
+  - GitHub Actions
 ---
 
 表題の通り。
@@ -120,13 +120,13 @@ GitHubのissueにコメントをPOSTするにはアクセストークンが必�
 こういうかんじで、ラベルをつけるとすぐにActionsがはしる。
 ラベルの下のコメントはActionsからPOSTされたもの。
 
-![labeled issue](https://user-images.githubusercontent.com/41158022/115138717-be9dfd00-a068-11eb-87d6-aff424efd113.png)
+{{< figure src="/images/labeled_issue.jpg" class="center" width="80%">}}
 
 Actionsタブで実行の様子が確認できる。
-![Actions](https://user-images.githubusercontent.com/41158022/115138721-cb225580-a068-11eb-9640-a3f345b133ef.png)
+{{< figure src="/images/labeled_actions.jpg" class="center" width="80%">}}
 
 スプレッドシートに追加された。
 こちらで更に詳細な分類を入力して、Datastudioとかに突っ込んで分析に役立てることができる。
-![spread sheet](https://user-images.githubusercontent.com/41158022/115138736-d9707180-a068-11eb-96ba-743ec4b9f6ca.png)
+{{< figure src="/images/result_spreadsheet.jpg" class="center" width="80%">}}
 
-[リポジトリはこちら](https://github.com/mochi5o/issue-labeled-action)
+[リポジトリ](https://github.com/mochi5o/issue-labeled-action)

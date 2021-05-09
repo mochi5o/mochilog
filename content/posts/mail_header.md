@@ -38,7 +38,7 @@ ARCとかDKIMは別途ちゃんとまとめたいな。
 `X-` から始まるヘッダーは拡張フィールド。任意に付与することができる。
 逆に言うとそれ以外は決まったフィールドということ。けっこう種類が多い:thinking:
 
-```
+```text
 Delivered-To: ******@gmail.com
 Received: by 2002:ac2:5293:0:0:0:0:0 with SMTP id q19csp113602lfm;
         Wed, 7 Apr 2021 22:29:41 -0700 (PDT)
@@ -117,7 +117,7 @@ ToとCcはいずれかが必須。
 
 ここらへんはAmazon側でつけてるヘッダー。
 
-```
+```text
 From: "Amazon.co.jp" <digital-no-reply@amazon.co.jp>
 Reply-To: digital-no-reply@amazon.co.jp
 To: ******@gmail.com
@@ -143,7 +143,7 @@ X-SES-Outgoing: 2021.04.08-54.240.25.2
 
 で、上のほうにいくとGoogleのサーバーがつけるヘッダーがでてくる。一部を抜粋。
 
-```
+```text
 Delivered-To: ******@gmail.com
 Received: by 2002:ac2:5293:0:0:0:0:0 with SMTP id q19csp113602lfm;
         Wed, 7 Apr 2021 22:29:41 -0700 (PDT)
@@ -168,7 +168,7 @@ Authentication-Results: mx.google.com;
 
 Amazonから送られたメールをGmailのサーバーが受け取ったときの`Recieved`は、今回でいうとこんな感じになってる。見やすいように切り取った。
 
-```
+```text
 Received: from us-west-2.amazonses.com           # 送信サーバー
           by mx.google.com                       # 受信サーバー
           with ESMTPS                            # 通信方式
@@ -195,6 +195,7 @@ Received: from us-west-2.amazonses.com           # 送信サーバー
 メールめちゃくちゃ奥が深い。そしておもしろい。体系的に学ぶのにいい本とかあるんだろうかー:thinking:
 
 #### 参考にさせていただいたサイト
+
 - https://www.atmarkit.co.jp/fnetwork/rensai/netpro03/mail-header.html
 - https://warumono.at.webry.info/201311/article_3.html
 - http://blog.smtps.jp/entry/2018/04/18/112026

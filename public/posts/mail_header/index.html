@@ -154,7 +154,7 @@ AmazonからGmailに届いた注文確認メールのヘッダーを例として
 <p>ARCとかDKIMは別途ちゃんとまとめたいな。</p>
 <p><code>X-</code> から始まるヘッダーは拡張フィールド。任意に付与することができる。
 逆に言うとそれ以外は決まったフィールドということ。けっこう種類が多い🤔</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>Delivered-To: ******@gmail.com
+<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text"><span class="ln"> 1</span>Delivered-To: ******@gmail.com
 <span class="ln"> 2</span>Received: by 2002:ac2:5293:0:0:0:0:0 with SMTP id q19csp113602lfm;
 <span class="ln"> 3</span>        Wed, 7 Apr 2021 22:29:41 -0700 (PDT)
 <span class="ln"> 4</span>X-Google-Smtp-Source: ABdhPJxqmbZpSuBStsM4t7FRkNJT...
@@ -271,7 +271,7 @@ ToとCcはいずれかが必須。</p>
 <h3 id="分割してみていく">分割してみていく</h3>
 <p>下が送信元（＝Amazon）なので、下から分割してちょっとずつ見ていく。</p>
 <p>ここらへんはAmazon側でつけてるヘッダー。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>From: &#34;Amazon.co.jp&#34; &lt;digital-no-reply@amazon.co.jp&gt;
+<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text"><span class="ln"> 1</span>From: &#34;Amazon.co.jp&#34; &lt;digital-no-reply@amazon.co.jp&gt;
 <span class="ln"> 2</span>Reply-To: digital-no-reply@amazon.co.jp
 <span class="ln"> 3</span>To: ******@gmail.com
 <span class="ln"> 4</span>Message-ID: &lt;01010178aff52124-***@us-west-2.amazonses.com&gt;
@@ -290,7 +290,7 @@ ToとCcはいずれかが必須。</p>
 <p>ヘッダーの内容の一部は送信者側で変更可能なので、実際に送信しているメールアドレスと異なるメールアドレスから送ったように見せたり、受信者自身と異なるメールアドレス宛に送ったものが届いたように見せることが可能である。</p>
 <p>よくあるのは送信者が自分で自分宛にとどいた！みたいな。このあたりはスパマーがよく使うやつ。</p>
 <p>で、上のほうにいくとGoogleのサーバーがつけるヘッダーがでてくる。一部を抜粋。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>Delivered-To: ******@gmail.com
+<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text"><span class="ln"> 1</span>Delivered-To: ******@gmail.com
 <span class="ln"> 2</span>Received: by 2002:ac2:5293:0:0:0:0:0 with SMTP id q19csp113602lfm;
 <span class="ln"> 3</span>        Wed, 7 Apr 2021 22:29:41 -0700 (PDT)
 <span class="ln"> 4</span>X-Google-Smtp-Source: ABdhPJxqmbZpSuBStsM4t7FRkNJT...
@@ -309,7 +309,7 @@ ToとCcはいずれかが必須。</p>
 </code></pre></div><p><code>Received</code>のフィールドを下から順に追っかけていくと、各サーバーに届いた時間が分かるので、これを見るとメールが遅延した場合などに経路上のどこで時間がかかっていたかが分かる。</p>
 <p>一番上の<code>Delivered-To</code>が実際に届けられた最終的な宛先になる。</p>
 <p>Amazonから送られたメールをGmailのサーバーが受け取ったときの<code>Recieved</code>は、今回でいうとこんな感じになってる。見やすいように切り取った。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>Received: from us-west-2.amazonses.com           # 送信サーバー
+<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text"><span class="ln">1</span>Received: from us-west-2.amazonses.com           # 送信サーバー
 <span class="ln">2</span>          by mx.google.com                       # 受信サーバー
 <span class="ln">3</span>          with ESMTPS                            # 通信方式
 <span class="ln">4</span>          id *****725pga.357.2021.04.07          # 識別ID
@@ -343,6 +343,9 @@ ToとCcはいずれかが必須。</p>
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
       <li>
+        <a href="/posts/remote_ssh/" class="nav-link" title="Remote-ssh &#43; EC2でLaravel開発環境">Remote-ssh &#43; EC2でLaravel開発環境</a>
+      </li>
+      <li>
         <a href="/posts/actions/" class="nav-link" title="Actionsで特定のラベルがついたissueをスプレッドシートで管理する">Actionsで特定のラベルがついたissueをスプレッドシートで管理する</a>
       </li>
       <li>
@@ -360,7 +363,7 @@ ToとCcはいずれかが必須。</p>
       <nav class="tags_nav">
         <a href='/categories/tech/' class="post_tag button button_translucent" title="tech">
           TECH
-          <span class="button_tally">3</span>
+          <span class="button_tally">4</span>
         </a>
         
         <a href='/categories/blog/' class="post_tag button button_translucent" title="blog">
@@ -379,8 +382,18 @@ ToとCcはいずれかが必須。</p>
           <span class="button_tally">2</span>
         </a>
         
-        <a href='/tags/actions/' class="post_tag button button_translucent" title="actions">
-          ACTIONS
+        <a href='/tags/ec2/' class="post_tag button button_translucent" title="ec2">
+          EC2
+          <span class="button_tally">1</span>
+        </a>
+        
+        <a href='/tags/github-actions/' class="post_tag button button_translucent" title="github-actions">
+          GITHUB-ACTIONS
+          <span class="button_tally">1</span>
+        </a>
+        
+        <a href='/tags/laravel/' class="post_tag button button_translucent" title="laravel">
+          LARAVEL
           <span class="button_tally">1</span>
         </a>
         
