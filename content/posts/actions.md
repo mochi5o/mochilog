@@ -4,7 +4,7 @@ date: 2021-04-18T15:38:24+09:00
 draft: false
 categories:
   - Tech
-thumbnail: "/images/labeled-issue.jpg"
+thumbnail: "/images/labeled_issue.jpg"
 tags:
   - GitHub Actions
 ---
@@ -75,7 +75,7 @@ IDEの自動保存に慣れてしまっている私は、保存を忘れて変�
 ```javascript
 function doPost(e) {
   var ss       = SpreadsheetApp.getActiveSpreadsheet();
-  var sheet    = ss.getSheetByName('issue data'); 
+  var sheet    = ss.getSheetByName('issue data');
   var PostData = JSON.parse(e.postData.contents);
   insertPostData(sheet, PostData);
 }

@@ -1,8 +1,8 @@
 
 <!DOCTYPE html>
-<html lang="en" data-figures="">
+<html lang="en" data-figures="" class="page">
   <head>
-<title>Categories | mochilog</title>
+<title>Notion APIパブリックベータ版をつかう | mochilog</title>
 <meta charset="utf-8">
 <meta name="generator" content="Hugo 0.80.0" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -17,13 +17,17 @@
 <meta property="og:locale" content="en" />
 
 <meta property="og:type" content="article">
-<meta name="description" content="">
+<meta name="description" content="Notion APIをさわってみた。
+前回、GitHub Acitonsを使って、特定のラベルがついたissueをスプレッドシートに自動でPOSTする処理を書いたので、それをアレンジして投稿先をNotionにしようと思った。
+Notion APIのつかいかた">
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@mochi5o_maki">
-<meta name="twitter:title" content="Categories" />
-<meta property="og:url" content="/categories/" />
-<meta property="og:title" content="Categories" />
-<meta property="og:description" content="" />
+<meta name="twitter:title" content="Notion APIパブリックベータ版をつかう" />
+<meta property="og:url" content="/posts/notion_api/" />
+<meta property="og:title" content="Notion APIパブリックベータ版をつかう" />
+<meta property="og:description" content="Notion APIをさわってみた。
+前回、GitHub Acitonsを使って、特定のラベルがついたissueをスプレッドシートに自動でPOSTする処理を書いたので、それをアレンジして投稿先をNotionにしようと思った。
+Notion APIのつかいかた" />
 <meta property="og:image" content="/images/thumbnail.png" />
 <link rel="icon" type="image/png" sizes="32x32" href='/icons/favicon-32x32.png'>
 <link rel="icon" type="image/png" sizes="16x16" href='/icons/favicon-16x16.png'>
@@ -31,7 +35,7 @@
 <link rel="mask-icon" href='/safari-pinned-tab.svg' color="#5bbad5">
 <meta name="msapplication-TileColor" content="#da532c">
 <meta name="theme-color" content="#ffffff">
-<link rel="canonical" href="/categories/">
+<link rel="canonical" href="/posts/notion_api/">
 
     
 
@@ -99,66 +103,147 @@
     <main>
 
 <div class="grid-inverse wrap content">
-  <ul class="posts" id="posts">
-      <li class="post_item">
-  <div class="excerpt">
-    <div class="excerpt_header">
-      <h3 class="post_link">
-        <a href="/categories/tech/" title="Tech">Tech</a>
-      </h3>
-      <div class="post_meta">
+    <article class="post_content">
+        <h1 class="post_title">Notion APIパブリックベータ版をつかう</h1><div class="post_meta">
   
     <svg class="icon">
   <use xlink:href="#calendar"></use>
 </svg>
     <span class="post_date">
       May 22, 2021</span>
+      <a href='/tags/notion' title="Notion" class="post_tag button button_translucent">Notion
+      </a>
 </div>
 
-    </div>
-      <div class="excerpt_footer">
-        <div>
-          <p class="pale">
-            
-          </p>
-          <a href="/categories/tech/" title="Read More" class="excerpt_more button">Read More</a>
-        </div>
-      </div>
-    </div>
-  </li>
-
-      <li class="post_item">
-  <div class="excerpt">
-    <div class="excerpt_header">
-      <h3 class="post_link">
-        <a href="/categories/blog/" title="blog">blog</a>
-      </h3>
-      <div class="post_meta">
-  
-    <svg class="icon">
-  <use xlink:href="#calendar"></use>
+        
+<div class="post_share">
+    <a href="/posts/notion_api/" title="Copy Link" class="link link_yank">
+        <svg class="icon">
+  <use xlink:href="#copy"></use>
 </svg>
-    <span class="post_date">
-      Feb 24, 2021</span>
+    </a>
 </div>
+        
+        <p>Notion APIをさわってみた。
+前回、GitHub Acitonsを使って、特定のラベルがついたissueをスプレッドシートに自動でPOSTする処理を書いたので、それをアレンジして投稿先をNotionにしようと思った。</p>
+<h2 id="notion-apiのつかいかた">Notion APIのつかいかた</h2>
+<p>とにかく、かんたんに使い始めることができる。</p>
+<p><a href="https://developers.notion.com/docs/getting-started">Getting Started</a>のページを参照すると、curlをつかった一番シンプルな形のPOSTはすぐにできる。
+以下、試しにcurlでいろいろなパラメータをPOSTしたときの手順。</p>
+<h3 id="integrationを登録する">Integrationを登録する</h3>
+<p>Notionのアカウントは持っている前提。また基本的なページ作成、データベース作成については言及しない。</p>
+<p>左メニューのSetting &gt; Integrations &gt; Develop your own Integrations と選択すると、Integrationの新規設定画面が表示される。
+必要事項を入力するだけで新規Integrationが登録できる。</p>
+<p>登録できたら、一覧画面に表示される。
+<figure class="center">
+    <img src="/images/my_integration.jpg" width="80%"/> 
+</figure>
+</p>
+<p>詳細画面ではTOKENが確認できる。権限設定もここで変更可能。
+<figure class="center">
+    <img src="/images/integrations_informations.jpg" width="80%"/> 
+</figure>
+</p>
+<h2 id="データベースにintegrationをひもづける">データベースにIntegrationをひもづける</h2>
+<p>自分のワークスペースでAPIにひもづけたいデータベースを作成して、左上のShareメニューから先程作成したIntegrationを選択してひもづける。</p>
+<figure class="center">
+    <img src="/images/notion_menu.jpg" width="80%"/> 
+</figure>
 
-    </div>
-      <div class="excerpt_footer">
-        <div>
-          <p class="pale">
-            
-          </p>
-          <a href="/categories/blog/" title="Read More" class="excerpt_more button">Read More</a>
-        </div>
-      </div>
-    </div>
-  </li>
+<p>これで、POSTする準備が整った。</p>
+<p>テスト用のコマンドは<a href="https://developers.notion.com/docs/getting-started">Getting Started</a>のページにのってるので、それをそのまま実行してみるとなんなく成功する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln"> 1</span>curl -X POST https://api.notion.com/v1/pages <span class="se">\
+</span><span class="ln"> 2</span><span class="se"></span>  -H <span class="s2">&#34;Authorization: Bearer {MY_NOTION_TOKEN}&#34;</span> <span class="se">\
+</span><span class="ln"> 3</span><span class="se"></span>  -H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="se">\
+</span><span class="ln"> 4</span><span class="se"></span>  -H <span class="s2">&#34;Notion-Version: 2021-05-13&#34;</span> <span class="se">\
+</span><span class="ln"> 5</span><span class="se"></span>  --data <span class="s1">&#39;{
+</span><span class="ln"> 6</span><span class="s1">    &#34;parent&#34;: { &#34;database_id&#34;: &#34;{DATABASE_ID}&#34; },
+</span><span class="ln"> 7</span><span class="s1">    &#34;properties&#34;: {
+</span><span class="ln"> 8</span><span class="s1">      &#34;Name&#34;: {
+</span><span class="ln"> 9</span><span class="s1">        &#34;title&#34;: [
+</span><span class="ln">10</span><span class="s1">          {
+</span><span class="ln">11</span><span class="s1">            &#34;text&#34;: {
+</span><span class="ln">12</span><span class="s1">              &#34;content&#34;: &#34;Yurts in Big Sur, California&#34;
+</span><span class="ln">13</span><span class="s1">            }
+</span><span class="ln">14</span><span class="s1">          }
+</span><span class="ln">15</span><span class="s1">        ]
+</span><span class="ln">16</span><span class="s1">      }
+</span><span class="ln">17</span><span class="s1">    }
+</span><span class="ln">18</span><span class="s1">  }&#39;</span>
+</code></pre></div><p>これで最初のテストデータの投稿が完了した。</p>
+<h2 id="もう少しいろいろなパラメータをpostする">もう少しいろいろなパラメータをPOSTする</h2>
+<p>Notionのデータベースでは、いわゆるレコードにあたる各行はそれぞれ独立したページとして存在する。データベースの状態でみたときに、カラムに相当するものは、各ページのpropatyと呼ばれるオブジェクトとして表現されている。</p>
+<p>先程登録したパラメータはtitleという特殊なpropatyで、そのままページのタイトルになる部分。このあたりの説明は<a href="https://developers.notion.com/docs/working-with-databases">こちら</a>に詳しい。</p>
+<p>今度は、他のpropaty（カラム）にもデータを登録できるようにしたい。<a href="https://www.postman.com/notionhq/workspace/notion-s-public-api-workspace/overview">Postmanのワークスペース</a>も公開されているので参考にしながらすすめる。</p>
+<p>とりあえずNumber、Text、Date、Selectのpropatyに対して投稿できることを確認した。</p>
+<figure class="center">
+    <img src="/images/post_for_notion.jpg" width="80%"/> 
+</figure>
 
-    <li>
-
-
-    </li>
-  </ul>
+<p>前回作ったActionsから投稿してみる。</p>
+<p>以下がActionsのYAMLファイル。
+curlで叩くためにヒアドキュメントにしたけど、これだと変数展開されないので、複雑なJSONをPOSTするならjsで書いたほうが良い。</p>
+<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="ln"> 1</span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">labels-actions</span><span class="w">
+</span><span class="ln"> 2</span><span class="w"> </span><span class="nt">on</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 3</span><span class="w">   </span><span class="nt">issues</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 4</span><span class="w">     </span><span class="nt">types</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 5</span><span class="w">       </span><span class="p">[</span><span class="s1">&#39;labeled&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;unlabeled&#39;</span><span class="p">]</span><span class="w">
+</span><span class="ln"> 6</span><span class="w">
+</span><span class="ln"> 7</span><span class="w"> </span><span class="nt">jobs</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 8</span><span class="w">   </span><span class="nt">labeled-actions</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 9</span><span class="w">     </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+</span><span class="ln">10</span><span class="w">     </span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span><span class="ln">11</span><span class="sd">       </span><span class="w">       </span><span class="l">(github.event.label.name == &#39;対応中&#39;) || (github.event.label.name == &#39;依頼中&#39;)</span><span class="w">
+</span><span class="ln">12</span><span class="w">     </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Recording label&#39;s add or remove time</span><span class="w">
+</span><span class="ln">13</span><span class="w">     </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span><span class="ln">14</span><span class="w">       </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Checkout</span><span class="w">
+</span><span class="ln">15</span><span class="w">         </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v2</span><span class="w">
+</span><span class="ln">16</span><span class="w">       </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">POST Comment</span><span class="w">
+</span><span class="ln">17</span><span class="w">         </span><span class="nt">env</span><span class="p">:</span><span class="w">
+</span><span class="ln">18</span><span class="w">           </span><span class="nt">GITHUB_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.ACCESS_TOKEN }}</span><span class="w">
+</span><span class="ln">19</span><span class="w">           </span><span class="nt">LABEL_NAME</span><span class="p">:</span><span class="w"> </span><span class="l">${{ github.event.label.name }}</span><span class="w">
+</span><span class="ln">20</span><span class="w">           </span><span class="nt">TITLE</span><span class="p">:</span><span class="w"> </span><span class="l">${{ github.event.issue.title }}</span><span class="w">
+</span><span class="ln">21</span><span class="w">         </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span><span class="ln">22</span><span class="sd">           curl -X POST -H &#34;Authorization: token $GITHUB_TOKEN&#34; -d &#34;{\&#34;body\&#34;: \&#34;ラベルが付きました\nラベル：　$LABEL_NAME\nタイトル：　$TITLE\&#34;}&#34; ${{ github.event.issue.comments_url }}
+</span><span class="ln">23</span><span class="sd">           data=$(cat &lt;&lt;EOF
+</span><span class="ln">24</span><span class="sd">           {
+</span><span class="ln">25</span><span class="sd">             &#34;parent&#34;: { &#34;database_id&#34;: &#34;dfc2cdc260ae476c8f2f5d4065f9a94a&#34; },
+</span><span class="ln">26</span><span class="sd">             &#34;properties&#34;: {
+</span><span class="ln">27</span><span class="sd">               &#34;Name&#34;: {
+</span><span class="ln">28</span><span class="sd">                 &#34;type&#34;: &#34;title&#34;,
+</span><span class="ln">29</span><span class="sd">                 &#34;title&#34;: [{ &#34;text&#34;: { &#34;content&#34;: &#34;POST Data&#34; } }]
+</span><span class="ln">30</span><span class="sd">               },
+</span><span class="ln">31</span><span class="sd">               &#34;Tags&#34;: {
+</span><span class="ln">32</span><span class="sd">                 &#34;type&#34;: &#34;rich_text&#34;,
+</span><span class="ln">33</span><span class="sd">                 &#34;rich_text&#34;: [{ &#34;text&#34;: { &#34;content&#34;: &#34;actions&#34; } }]
+</span><span class="ln">34</span><span class="sd">               },
+</span><span class="ln">35</span><span class="sd">               &#34;Price&#34;: {
+</span><span class="ln">36</span><span class="sd">                 &#34;type&#34;: &#34;number&#34;,
+</span><span class="ln">37</span><span class="sd">                 &#34;number&#34;: 500
+</span><span class="ln">38</span><span class="sd">               },
+</span><span class="ln">39</span><span class="sd">               &#34;Date&#34;: {
+</span><span class="ln">40</span><span class="sd">                 &#34;type&#34;: &#34;date&#34;,
+</span><span class="ln">41</span><span class="sd">                 &#34;date&#34;: { &#34;start&#34;: &#34;2021-05-11&#34; }
+</span><span class="ln">42</span><span class="sd">               },
+</span><span class="ln">43</span><span class="sd">               &#34;Status&#34;: {
+</span><span class="ln">44</span><span class="sd">                 &#34;select&#34;: {
+</span><span class="ln">45</span><span class="sd">                   &#34;name&#34;: &#34;complete&#34;
+</span><span class="ln">46</span><span class="sd">                 }
+</span><span class="ln">47</span><span class="sd">               }
+</span><span class="ln">48</span><span class="sd">             }
+</span><span class="ln">49</span><span class="sd">           }
+</span><span class="ln">50</span><span class="sd">           EOF
+</span><span class="ln">51</span><span class="sd">           )
+</span><span class="ln">52</span><span class="sd">           curl -X POST &#34;https://api.notion.com/v1/pages&#34; \
+</span><span class="ln">53</span><span class="sd">             -H &#34;Authorization: Bearer ${{ secrets.MY_NOTION_TOKEN }}&#34; \
+</span><span class="ln">54</span><span class="sd">             -H &#34;Content-type: application/json&#34; \
+</span><span class="ln">55</span><span class="sd">             -H &#34;Notion-Version: 2021-05-13&#34; \
+</span><span class="ln">56</span><span class="sd">             -d &#34;$data&#34;</span><span class="w">           
+</span></code></pre></div><p>上記を実行すると、GitHubの該当issue上にもコメントが追加される。</p>
+<figure class="center">
+    <img src="/images/github_comment.jpg" width="80%"/> 
+</figure>
+    </article>
 <aside class="sidebar">
   <section class="sidebar_inner">
     
@@ -169,9 +254,6 @@
       <a href='/about/' class="button mt-1" role="button" title='Read More'>Read More</a>
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
-      <li>
-        <a href="/posts/notion_api/" class="nav-link" title="Notion APIパブリックベータ版をつかう">Notion APIパブリックベータ版をつかう</a>
-      </li>
       <li>
         <a href="/posts/remote_ssh/" class="nav-link" title="Remote-ssh &#43; EC2でLaravel開発環境">Remote-ssh &#43; EC2でLaravel開発環境</a>
       </li>
@@ -261,9 +343,8 @@
   </section>
 </aside>
 
+    
 </div>
-
-
     </main><svg width="0" height="0" class="hidden">
   <symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="facebook">
     <path d="M437 0H75C33.648 0 0 33.648 0 75v362c0 41.352 33.648 75 75 75h151V331h-60v-90h60v-61c0-49.629 40.371-90 90-90h91v90h-91v61h91l-15 90h-76v181h121c41.352 0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zm0 0"></path>
