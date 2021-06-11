@@ -3,7 +3,7 @@ title: らせん階段
 date: 2021-04-10T13:55:54+09:00
 draft: false
 categories:
-  - Tech
+  - blog
 tags:
   - other
 ---
