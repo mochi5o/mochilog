@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en" data-figures="" class="page">
   <head>
-<title>About me | mochilog</title>
+<title>特定のラベルをつけたissueをNotion上でタスク管理する | mochilog</title>
 <meta charset="utf-8">
 <meta name="generator" content="Hugo 0.80.0" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -14,17 +14,18 @@
   gtag('js', new Date());
   gtag('config', 'XXXXXXXXXX');
 </script>
-  
 <meta property="og:locale" content="en" />
 
 <meta property="og:type" content="article">
-<meta name="description" content="Abuot">
+<meta name="description" content="最近触っているGitHub ActionsとNotion API。GitHub上で特定のラベルがついたissueをNotion側にPOSTしてNotionでタスク管理できるようにした。
+Notionに寄せたいモチベーションは、リポジトリが別でもNotion上でタスクとして一元管理できる点と、プロパティが自由に追加できる …">
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@mochi5o_maki">
-<meta name="twitter:title" content="About me" />
-<meta property="og:url" content="/about/" />
-<meta property="og:title" content="About me" />
-<meta property="og:description" content="Abuot" />
+<meta name="twitter:title" content="特定のラベルをつけたissueをNotion上でタスク管理する" />
+<meta property="og:url" content="/posts/actions-to-notion/" />
+<meta property="og:title" content="特定のラベルをつけたissueをNotion上でタスク管理する" />
+<meta property="og:description" content="最近触っているGitHub ActionsとNotion API。GitHub上で特定のラベルがついたissueをNotion側にPOSTしてNotionでタスク管理できるようにした。
+Notionに寄せたいモチベーションは、リポジトリが別でもNotion上でタスクとして一元管理できる点と、プロパティが自由に追加できる …" />
 <meta property="og:image" content="/images/thumbnail.png" />
 <link rel="icon" type="image/png" sizes="32x32" href='/icons/favicon-32x32.png'>
 <link rel="icon" type="image/png" sizes="16x16" href='/icons/favicon-16x16.png'>
@@ -32,7 +33,7 @@
 <link rel="mask-icon" href='/safari-pinned-tab.svg' color="#5bbad5">
 <meta name="msapplication-TileColor" content="#da532c">
 <meta name="theme-color" content="#ffffff">
-<link rel="canonical" href="/about/">
+<link rel="canonical" href="/posts/actions-to-notion/">
 
     
 
@@ -72,7 +73,7 @@
   <div class="nav_parent">
     <a href="/" class="nav_item" title="Home">Home </a>
   </div>
-  <div class="nav_parent nav_active">
+  <div class="nav_parent">
     <a href="/about/" class="nav_item" title="About">About </a>
   </div>
       
@@ -101,31 +102,124 @@
 
 <div class="grid-inverse wrap content">
     <article class="post_content">
-        <h1 class="post_title">About me</h1><div class="post_meta">
+        <h1 class="post_title">特定のラベルをつけたissueをNotion上でタスク管理する</h1><div class="post_meta">
   
     <svg class="icon">
   <use xlink:href="#calendar"></use>
 </svg>
     <span class="post_date">
-      Feb 22, 2021</span>
+      Jun 1, 2021</span>
+      <a href='/tags/notion' title="Notion" class="post_tag button button_translucent">Notion
+      </a>
+      <a href='/tags/github-actions' title="GitHub Actions" class="post_tag button button_translucent">GitHub Actions
+      </a>
 </div>
 
         
 <div class="post_share">
-    <a href="/about/" title="Copy Link" class="link link_yank">
+    <a href="/posts/actions-to-notion/" title="Copy Link" class="link link_yank">
         <svg class="icon">
   <use xlink:href="#copy"></use>
 </svg>
     </a>
 </div>
         
-        <h3 id="経歴">経歴</h3>
-<p>小売でマネジメント業→医療法人にて広報→Webサイト作りたい→プログラミング学習→異業種転職でWebエンジニア。
-Customer Reliability Engeneer.</p>
-<h3 id="このブログは">このブログは…</h3>
-<p>PHPとRubyを勉強して転職したエンジニアのアウトプットの場です。
-サーバーサイドとネットワーク・インフラにも興味があるので、学んだこと・日々のことなどを書いていきます。</p>
+        <p>最近触っているGitHub ActionsとNotion API。GitHub上で特定のラベルがついたissueをNotion側にPOSTしてNotionでタスク管理できるようにした。</p>
+<p>Notionに寄せたいモチベーションは、リポジトリが別でもNotion上でタスクとして一元管理できる点と、プロパティが自由に追加できるのでステータスとか分類の管理が柔軟な点、それとフィルター機能が充実していること。</p>
+<p>Notionが公式提供しているSDKをつかって実装することにした。</p>
+<ul>
+<li>Notion SDK: <a href="https://github.com/makenotion/notion-sdk-js">https://github.com/makenotion/notion-sdk-js</a></li>
+<li>API documentation: <a href="https://developers.notion.com/reference">https://developers.notion.com/reference</a></li>
+<li>Postman collection: <a href="https://github.com/makenotion/notion-sdk-js">https://www.postman.com/notionhq/</a></li>
+</ul>
+<h2 id="actionsからnotionのapiを使ってissueのデータをpostする">ActionsからNotionのAPIを使ってissueのデータをPOSTする</h2>
+<p>ということで早速実装。</p>
+<p>issueに特定のラベルがつくと走るActionsを作成する。
+こんな感じで書いておけば、issueに対してlabeledイベントが発生したときに、そのラベルを確認して条件に合致すれば以降のステップに進むように制御できる。</p>
+<div class="highlight"><pre class="chroma"><code class="language-main.yml" data-lang="main.yml"><span class="ln"> 1</span><span class="nt">on</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 2</span><span class="w">  </span><span class="nt">issues</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 3</span><span class="w">    </span><span class="nt">types</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 4</span><span class="w">      </span><span class="p">[</span><span class="s1">&#39;labeled&#39;</span><span class="p">]</span><span class="w">
+</span><span class="ln"> 5</span><span class="w"></span><span class="nt">jobs</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 6</span><span class="w">  </span><span class="nt">labeled-actions</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 7</span><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+</span><span class="ln"> 8</span><span class="w">    </span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span><span class="ln"> 9</span><span class="sd">      </span><span class="w">      </span><span class="l">contains(github.event.label.name, &#39;特別なラベル&#39;)</span><span class="w">
+</span><span class="ln">10</span><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span><span class="ln">11</span><span class="w"></span><span class="nn">...</span><span class="w">
+</span></code></pre></div><p>特定のstepを実行するときにリポジトリに定義したsecretsやActionsのイベントの情報を使いたいときは、yml上で<code>with</code>を使って定義してあげれば渡すことができる。
+これを使って、Actionsが発火したissueの情報やsecretsに設定したNotionのIntegration Tokenを渡しておく。</p>
+<div class="highlight"><pre class="chroma"><code class="language-main.yml" data-lang="main.yml"><span class="ln">1</span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span><span class="ln">2</span><span class="w">  </span><span class="nt">issue-title</span><span class="p">:</span><span class="w"> </span><span class="l">${{ github.event.issue.title }}</span><span class="w">
+</span><span class="ln">3</span><span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l">${{ github.event.issue.url }}</span><span class="w">
+</span><span class="ln">4</span><span class="w">  </span><span class="nt">integrations-token</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.NOTION_TOKEN }}</span><span class="w">
+</span><span class="ln">5</span><span class="w">  </span><span class="nt">db-id</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.DB_ID }}</span><span class="w">
+</span></code></pre></div><p>ちなみに、あらかじめNotion側で任意のデータベースのページでIntegrationの設定を入れておく必要があるので注意。</p>
+<p><a href="https://developers.notion.com/docs/getting-started#step-2-share-a-database-with-your-integration">Share a database with your integration</a></p>
+<p>必要な情報を渡すことができれば、あとはそれをもとにNotion SDKを使ってNotionにPOSTする処理を書けばよい。</p>
+<ul>
+<li>Notion SDK: <a href="https://github.com/makenotion/notion-sdk-js">https://github.com/makenotion/notion-sdk-js</a></li>
+</ul>
+<p>npmでインストールするだけで使える。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln">1</span>npm install @notionhq/client
+</code></pre></div><p>以下は記述方法の抜粋。</p>
+<div class="highlight"><pre class="chroma"><code class="language-main.js" data-lang="main.js"><span class="ln"> 1</span><span class="kr">const</span> <span class="p">{</span> <span class="nx">Client</span><span class="p">,</span> <span class="nx">LogLevel</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@notionhq/client&#39;</span><span class="p">);</span>
+<span class="ln"> 2</span>
+<span class="ln"> 3</span><span class="kr">const</span> <span class="nx">main</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+<span class="ln"> 4</span>  <span class="kr">const</span> <span class="nx">notionToken</span> <span class="o">=</span> <span class="nx">core</span><span class="p">.</span><span class="nx">getInput</span><span class="p">(</span><span class="s1">&#39;integrations-token&#39;</span><span class="p">);</span>
+<span class="ln"> 5</span>  <span class="kr">const</span> <span class="nx">issueTitle</span> <span class="o">=</span> <span class="nx">core</span><span class="p">.</span><span class="nx">getInput</span><span class="p">(</span><span class="s1">&#39;issue-title&#39;</span><span class="p">);</span>
+<span class="ln"> 6</span>  <span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">core</span><span class="p">.</span><span class="nx">getInput</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">);</span>
+<span class="ln"> 7</span>  <span class="kr">const</span> <span class="nx">dbId</span> <span class="o">=</span> <span class="nx">core</span><span class="p">.</span><span class="nx">getInput</span><span class="p">(</span><span class="s1">&#39;db-id&#39;</span><span class="p">);</span>
+<span class="ln"> 8</span>
+<span class="ln"> 9</span>  <span class="kr">const</span> <span class="nx">notion</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Client</span><span class="p">({</span>
+<span class="ln">10</span>    <span class="nx">auth</span><span class="o">:</span> <span class="nx">notionToken</span><span class="p">,</span>
+<span class="ln">11</span>    <span class="nx">logLevel</span><span class="o">:</span> <span class="nx">LogLevel</span><span class="p">.</span><span class="nx">DEBUG</span><span class="p">,</span>
+<span class="ln">12</span>  <span class="p">});</span>
+<span class="ln">13</span>  <span class="kr">const</span> <span class="nx">parent</span> <span class="o">=</span> <span class="p">{</span>
+<span class="ln">14</span>    <span class="nx">database_id</span><span class="o">:</span> <span class="nx">dbId</span><span class="p">,</span>
+<span class="ln">15</span>  <span class="p">};</span>
+<span class="ln">16</span>  <span class="kr">const</span> <span class="nx">properties</span> <span class="o">=</span> <span class="p">{</span>
+<span class="ln">17</span>    <span class="nx">Title</span><span class="o">:</span> <span class="p">{</span>
+<span class="ln">18</span>      <span class="nx">title</span><span class="o">:</span> <span class="p">[{</span> <span class="nx">text</span><span class="o">:</span> <span class="p">{</span> <span class="nx">content</span><span class="o">:</span> <span class="nx">issueTitle</span> <span class="p">}</span> <span class="p">}],</span>
+<span class="ln">19</span>    <span class="p">},</span>
+<span class="ln">20</span>    <span class="nx">Url</span><span class="o">:</span> <span class="p">{</span>
+<span class="ln">21</span>      <span class="nx">url</span><span class="o">:</span> <span class="nx">url</span><span class="p">,</span>
+<span class="ln">22</span>    <span class="p">},</span>
+<span class="ln">23</span>    <span class="nx">Status</span><span class="o">:</span> <span class="p">{</span>
+<span class="ln">24</span>      <span class="nx">select</span><span class="o">:</span> <span class="p">{</span>
+<span class="ln">25</span>        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;not started&#39;</span><span class="p">,</span>
+<span class="ln">26</span>      <span class="p">},</span>
+<span class="ln">27</span>    <span class="p">},</span>
+<span class="ln">28</span>  <span class="p">};</span>
+<span class="ln">29</span>  <span class="kr">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">notion</span><span class="p">.</span><span class="nx">pages</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+<span class="ln">30</span>    <span class="nx">parent</span><span class="o">:</span> <span class="nx">parent</span><span class="p">,</span>
+<span class="ln">31</span>    <span class="nx">properties</span><span class="o">:</span> <span class="nx">properties</span><span class="p">,</span>
+<span class="ln">32</span>  <span class="p">});</span>
+<span class="ln">33</span><span class="p">...</span>
+</code></pre></div><p>実装はこれだけで、非常にシンプルに使えた😄
+特定のラベルをつけるとこんな風にNotionにテーブルが追加される。やったー！</p>
+<p>今回はNotion側にformulaを設定して、Notion上でのページのcreated_atの時間と、Notionのページの最終更新までの時間の差を分で算出するようにしてみた。
+これでタスク終わりにcompleteをつけてあげるだけで、issueの登録から解決までの時間を簡易的に計測できる。Notionのformulaはちょっとしたことに便利。</p>
+<figure class="center">
+    <img src="/images/issues.jpg" width="80%"/> 
+</figure>
 
+<h3 id="actionsのtips">ActionsのTips</h3>
+<p>本題からはずれるが、jsのAction実行時はnodeの環境を使い、リポジトリをチェックアウトしてそのコードを利用するので<code>node_modules</code>の依存ライブラリも同梱する必要がある。でも<code>node_modules</code>を一緒にリポジトリにアップするのはうっとおしい。で、どうするかというと、nccというツールを使うことを知ったのでメモしておく。</p>
+<p>Actionsのドキュメントに書いてあった。</p>
+<ul>
+<li><a href="https://docs.github.com/ja/actions/creating-actions/creating-a-javascript-action#commit-tag-and-push-your-action-to-github">アクションの GitHub へのコミットとタグ、プッシュ</a></li>
+<li><a href="https://github.com/vercel/ncc">@vercel/ncc</a></li>
+</ul>
+<p>nccを使って、</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln">1</span>ncc build index.js
+</code></pre></div><p>とすれば、依存関係をコンパイルした <code>dist/index.js</code>を生成してくれる。これをリポジトリにプッシュして、Actions実行時にはこのファイルを実行するようにすればよい。</p>
+<p>これで<code>node_mopdules</code>ディレクトリ以下をgitignoreできる。
+なるほどー。</p>
+<h3 id="リポジトリ">リポジトリ</h3>
+<ul>
+<li><a href="https://github.com/mochi5o/from_actions_to_notion">mochi5o/from_actions_to_notion</a></li>
+</ul>
     </article>
 <aside class="sidebar">
   <section class="sidebar_inner">
@@ -137,9 +231,6 @@ Customer Reliability Engeneer.</p>
       <a href='/about/' class="button mt-1" role="button" title='Read More'>Read More</a>
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
-      <li>
-        <a href="/posts/actions-to-notion/" class="nav-link" title="特定のラベルをつけたissueをNotion上でタスク管理する">特定のラベルをつけたissueをNotion上でタスク管理する</a>
-      </li>
       <li>
         <a href="/posts/notion_api/" class="nav-link" title="Notion APIパブリックベータ版をつかう">Notion APIパブリックベータ版をつかう</a>
       </li>

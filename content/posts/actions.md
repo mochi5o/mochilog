@@ -37,7 +37,7 @@ on:
 これでラベルが付与されたときに実行されるアクションがつくれる。
 特定のラベルがついたときだけに限定したい場合は、つづけて条件を記載することもできる。
 
-```yaml
+```yml
 if: |
   (github.event.label.name == 'wontfix') || (github.event.label.name == 'bug')
 ```
@@ -52,7 +52,7 @@ Tokyoにタイムゾーンを設定しておけばOK。
 最終的な今回の目的に照らせば、別にこの方法でなくてもどうとでもなりそう。
 GAS側でPOSTされた日時を得ることも可能だし…
 
-```yaml
+```yml
 - name: Setup timezone
   uses: zcong1993/setup-timezone@master
   with:
@@ -72,7 +72,7 @@ doPostという関数が用意されてるので、そこにデータを突っ�
 
 IDEの自動保存に慣れてしまっている私は、保存を忘れて変更が反映されてないままデプロイする、というのを数回繰り返してしまった。
 
-```javascript
+```js
 function doPost(e) {
   var ss       = SpreadsheetApp.getActiveSpreadsheet();
   var sheet    = ss.getSheetByName('issue data');
@@ -100,7 +100,7 @@ GitHubのissueにコメントをPOSTするにはアクセストークンが必�
 
 おなじく先程デプロイしたURLもsecretsに保存しておいて、そこに対してデータをPOSTする。
 
-```yaml
+```yml
 - name: Data post
   env:
     GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}

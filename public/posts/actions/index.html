@@ -30,7 +30,7 @@
 会社で問合せ内容をissue管理しているのだが、それをデータベースにして傾向分析をしたい、となった。
 スプレッドシートにissueの一覧を持ってきて、問合せの調査結果などを踏まえて事象をうまく分類していきたい。
 最終的にはDatastudioにインポートしていい感じに傾向の可視化ができれば、というようなモ …" />
-<meta property="og:image" content="/images/labeled-issue.jpg" />
+<meta property="og:image" content="/images/labeled_issue.jpg" />
 <link rel="icon" type="image/png" sizes="32x32" href='/icons/favicon-32x32.png'>
 <link rel="icon" type="image/png" sizes="16x16" href='/icons/favicon-16x16.png'>
 <link rel="manifest" href='/icons/site.webmanifest'>
@@ -143,7 +143,7 @@
 </span><span class="ln">4</span><span class="w">      </span><span class="p">[</span><span class="s1">&#39;labeled&#39;</span><span class="p">]</span><span class="w">
 </span></code></pre></div><p>これでラベルが付与されたときに実行されるアクションがつくれる。
 特定のラベルがついたときだけに限定したい場合は、つづけて条件を記載することもできる。</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln">1</span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="ln">1</span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
 </span><span class="ln">2</span><span class="sd">  </span><span class="w">  </span><span class="l">(github.event.label.name == &#39;wontfix&#39;) || (github.event.label.name == &#39;bug&#39;)</span><span class="w">
 </span></code></pre></div><h3 id="日付の取得">日付の取得</h3>
 <p>アクションが実行される日時をこんなふうに取得できる。
@@ -151,7 +151,7 @@ Tokyoにタイムゾーンを設定しておけばOK。</p>
 <p>当初はちょっと別の目的もあったので、ラベルがついた日時をスプレッドシート側に持っておきたかった。</p>
 <p>最終的な今回の目的に照らせば、別にこの方法でなくてもどうとでもなりそう。
 GAS側でPOSTされた日時を得ることも可能だし…</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln">1</span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Setup timezone</span><span class="w">
+<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="ln">1</span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Setup timezone</span><span class="w">
 </span><span class="ln">2</span><span class="w">  </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">zcong1993/setup-timezone@master</span><span class="w">
 </span><span class="ln">3</span><span class="w">  </span><span class="nt">with</span><span class="p">:</span><span class="w">
 </span><span class="ln">4</span><span class="w">    </span><span class="nt">timezone</span><span class="p">:</span><span class="w"> </span><span class="l">Asia/Tokyo</span><span class="w">
@@ -164,9 +164,9 @@ doPostという関数が用意されてるので、そこにデータを突っ�
 <p>スプレッドシートからスクリプトエディタを起動して、編集→保存→デプロイする。
 すべてのユーザーに公開しないとcurlからたたけないので注意。</p>
 <p>IDEの自動保存に慣れてしまっている私は、保存を忘れて変更が反映されてないままデプロイする、というのを数回繰り返してしまった。</p>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="ln"> 1</span><span class="kd">function</span> <span class="nx">doPost</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="ln"> 1</span><span class="kd">function</span> <span class="nx">doPost</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
 <span class="ln"> 2</span>  <span class="kd">var</span> <span class="nx">ss</span>       <span class="o">=</span> <span class="nx">SpreadsheetApp</span><span class="p">.</span><span class="nx">getActiveSpreadsheet</span><span class="p">();</span>
-<span class="ln"> 3</span>  <span class="kd">var</span> <span class="nx">sheet</span>    <span class="o">=</span> <span class="nx">ss</span><span class="p">.</span><span class="nx">getSheetByName</span><span class="p">(</span><span class="s1">&#39;issue data&#39;</span><span class="p">);</span> 
+<span class="ln"> 3</span>  <span class="kd">var</span> <span class="nx">sheet</span>    <span class="o">=</span> <span class="nx">ss</span><span class="p">.</span><span class="nx">getSheetByName</span><span class="p">(</span><span class="s1">&#39;issue data&#39;</span><span class="p">);</span>
 <span class="ln"> 4</span>  <span class="kd">var</span> <span class="nx">PostData</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">postData</span><span class="p">.</span><span class="nx">contents</span><span class="p">);</span>
 <span class="ln"> 5</span>  <span class="nx">insertPostData</span><span class="p">(</span><span class="nx">sheet</span><span class="p">,</span> <span class="nx">PostData</span><span class="p">);</span>
 <span class="ln"> 6</span><span class="p">}</span>
@@ -185,7 +185,7 @@ doPostという関数が用意されてるので、そこにデータを突っ�
 <p>GitHubのissueにコメントをPOSTするにはアクセストークンが必要なので別途用意して、リポジトリのsecretsに設定している。
 <code>${{ secrets.ACCESS_TOKEN }}</code> という形でsecretsの値は取得できる。</p>
 <p>おなじく先程デプロイしたURLもsecretsに保存しておいて、そこに対してデータをPOSTする。</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln"> 1</span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Data post</span><span class="w">
+<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="ln"> 1</span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Data post</span><span class="w">
 </span><span class="ln"> 2</span><span class="w">  </span><span class="nt">env</span><span class="p">:</span><span class="w">
 </span><span class="ln"> 3</span><span class="w">    </span><span class="nt">GITHUB_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.ACCESS_TOKEN }}</span><span class="w">
 </span><span class="ln"> 4</span><span class="w">    </span><span class="nt">URL</span><span class="p">:</span><span class="w"> </span><span class="l">${{ github.event.issue.url }}</span><span class="w">
@@ -228,6 +228,9 @@ doPostという関数が用意されてるので、そこにデータを突っ�
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
       <li>
+        <a href="/posts/actions-to-notion/" class="nav-link" title="特定のラベルをつけたissueをNotion上でタスク管理する">特定のラベルをつけたissueをNotion上でタスク管理する</a>
+      </li>
+      <li>
         <a href="/posts/notion_api/" class="nav-link" title="Notion APIパブリックベータ版をつかう">Notion APIパブリックベータ版をつかう</a>
       </li>
       <li>
@@ -251,7 +254,7 @@ doPostという関数が用意されてるので、そこにデータを突っ�
       <nav class="tags_nav">
         <a href='/categories/tech/' class="post_tag button button_translucent" title="tech">
           TECH
-          <span class="button_tally">5</span>
+          <span class="button_tally">6</span>
         </a>
         
         <a href='/categories/blog/' class="post_tag button button_translucent" title="blog">
@@ -265,18 +268,23 @@ doPostという関数が用意されてるので、そこにデータを突っ�
     <div>
       <h2 class="mt-4 taxonomy" id="tags-section">Tags</h2>
       <nav class="tags_nav">
+        <a href='/tags/github-actions/' class="post_tag button button_translucent" title="github-actions">
+          GITHUB-ACTIONS
+          <span class="button_tally">2</span>
+        </a>
+        
         <a href='/tags/hugo/' class="post_tag button button_translucent" title="hugo">
           HUGO
           <span class="button_tally">2</span>
         </a>
         
-        <a href='/tags/ec2/' class="post_tag button button_translucent" title="ec2">
-          EC2
-          <span class="button_tally">1</span>
+        <a href='/tags/notion/' class="post_tag button button_translucent" title="notion">
+          NOTION
+          <span class="button_tally">2</span>
         </a>
         
-        <a href='/tags/github-actions/' class="post_tag button button_translucent" title="github-actions">
-          GITHUB-ACTIONS
+        <a href='/tags/ec2/' class="post_tag button button_translucent" title="ec2">
+          EC2
           <span class="button_tally">1</span>
         </a>
         
@@ -287,11 +295,6 @@ doPostという関数が用意されてるので、そこにデータを突っ�
         
         <a href='/tags/mail/' class="post_tag button button_translucent" title="mail">
           MAIL
-          <span class="button_tally">1</span>
-        </a>
-        
-        <a href='/tags/notion/' class="post_tag button button_translucent" title="notion">
-          NOTION
           <span class="button_tally">1</span>
         </a>
         
