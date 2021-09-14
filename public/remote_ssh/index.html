@@ -1,8 +1,8 @@
 
 <!DOCTYPE html>
-<html lang="en" data-figures="">
+<html lang="en" data-figures="" class="page">
   <head>
-<title>LinuC | mochilog</title>
+<title>Remote-ssh &#43; EC2でLaravel開発環境 | mochilog</title>
 <meta charset="utf-8">
 <meta name="generator" content="Hugo 0.80.0" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -17,13 +17,15 @@
 <meta property="og:locale" content="en" />
 
 <meta property="og:type" content="article">
-<meta name="description" content="">
+<meta name="description" content="業務で研修に携わることになり、ConoHa VPS上のLaravelの開発環境にRemote-SSHからアクセスして開発するのが圧倒的に簡単だった。
+最初にLaravel使ったときはAWSの優待を使ってcloud9で開発してたけど、VS Codeを使って手元で開発できたほうがいいよなぁということで。EC2にインスタンス …">
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@mochi5o_maki">
-<meta name="twitter:title" content="LinuC" />
-<meta property="og:url" content="/tags/linuc/" />
-<meta property="og:title" content="LinuC" />
-<meta property="og:description" content="" />
+<meta name="twitter:title" content="Remote-ssh &#43; EC2でLaravel開発環境" />
+<meta property="og:url" content="/remote_ssh/" />
+<meta property="og:title" content="Remote-ssh &#43; EC2でLaravel開発環境" />
+<meta property="og:description" content="業務で研修に携わることになり、ConoHa VPS上のLaravelの開発環境にRemote-SSHからアクセスして開発するのが圧倒的に簡単だった。
+最初にLaravel使ったときはAWSの優待を使ってcloud9で開発してたけど、VS Codeを使って手元で開発できたほうがいいよなぁということで。EC2にインスタンス …" />
 <meta property="og:image" content="/images/thumbnail.png" />
 <link rel="icon" type="image/png" sizes="32x32" href='/icons/favicon-32x32.png'>
 <link rel="icon" type="image/png" sizes="16x16" href='/icons/favicon-16x16.png'>
@@ -31,7 +33,7 @@
 <link rel="mask-icon" href='/safari-pinned-tab.svg' color="#5bbad5">
 <meta name="msapplication-TileColor" content="#da532c">
 <meta name="theme-color" content="#ffffff">
-<link rel="canonical" href="/tags/linuc/">
+<link rel="canonical" href="/remote_ssh/">
 
     
 
@@ -100,44 +102,131 @@
     <main>
 
 <div class="grid-inverse wrap content">
-  <ul class="posts" id="posts">
-      <li class="post_item">
-  <div class="excerpt">
-    <div class="excerpt_header">
-      <h3 class="post_link">
-        <a href="/decide-to-take-the-linuc-exam/" title="LinuCを受けることに決めた">LinuCを受けることに決めた</a>
-      </h3>
-      <div class="post_meta">
+    <article class="post_content">
+        <h1 class="post_title">Remote-ssh &#43; EC2でLaravel開発環境</h1><div class="post_meta">
   
     <svg class="icon">
   <use xlink:href="#calendar"></use>
 </svg>
     <span class="post_date">
-      Sep 14, 2021</span>
-      <a href='/tags/linuc' title="LinuC" class="post_tag button button_translucent">LinuC
+      May 9, 2021</span>
+      <a href='/tags/laravel' title="Laravel" class="post_tag button button_translucent">Laravel
+      </a>
+      <a href='/tags/ec2' title="EC2" class="post_tag button button_translucent">EC2
       </a>
 </div>
 
-    </div>
-      <div class="excerpt_footer">
-        <div>
-          <p class="pale">
-            
-              <p>LinuCを受験することにしたので決意表明と受験にあたって調べたことの忘備録を残す。</p>
-<p>試験の概要と、試験対策でやろうと思っていることと、今後のざっくりスケジュール。</p>
-            
-          </p>
-          <a href="/decide-to-take-the-linuc-exam/" title="Read More" class="excerpt_more button">Read More</a>
-        </div>
-      </div>
-    </div>
-  </li>
+        
+        
+        <p>業務で研修に携わることになり、ConoHa VPS上のLaravelの開発環境にRemote-SSHからアクセスして開発するのが圧倒的に簡単だった。</p>
+<p>最初にLaravel使ったときはAWSの優待を使ってcloud9で開発してたけど、VS Codeを使って手元で開発できたほうがいいよなぁということで。EC2にインスタンス立ててRemote-SSHでローカルからアクセスしてみるというのを試してみた。</p>
+<h2 id="awsにインスタンスをたてる">AWSにインスタンスをたてる</h2>
+<p>とりあえず何も考えずにt2.microでつくって、SSHだけアクセス元のIPを制限した。
+マイIPというボタン一つで現在のアクセスIPを登録してくれるのでとりあえずシュッと作るだけなら何も考えなくてOK。</p>
+<p>まずは特に設定変更もせずにインスタンス作成ボタンを押すと、鍵を登録するか新規作成してって言ってくれるので、新規作成にしてボタンポチで作成＆ダウンロード。</p>
+<figure class="center">
+    <img src="/images/create_key.png" width="50%"/> 
+</figure>
 
-    <li>
+<p>作成が完了しました、とでてきたらインスタンスの詳細画面に行って接続情報を確認。</p>
+<figure class="center">
+    <img src="/images/connect_info.png" width="50%"/> 
+</figure>
 
+<p>こんな風に、接続用コマンドまで書いてくれているので即コピペでOKな感じになってた。親切。
+インスタンスが起動できたら、手元のVS Codeから接続できることを確認していく。</p>
+<h3 id="remote-sshでインスタンスに接続">Remote-sshでインスタンスに接続</h3>
+<ul>
+<li>
+<p>拡張機能からRemote-sshをインストール。</p>
+</li>
+<li>
+<p>＋ボタンから新規接続の設定へ。
+<figure class="center">
+    <img src="/images/remote_ssh.png" width="50%"/> 
+</figure>
+</p>
+</li>
+<li>
+<p><code>ssh -i {ダウンロードした鍵のパス} {ユーザー名}@{ホスト名}</code> でEnter。
+<figure class="center">
+    <img src="/images/ssh_connection.png" width="50%"/> 
+</figure>
+</p>
+</li>
+<li>
+<p>設定の保存先を聞かれるので適宜選択。<code>~/.ssh/config</code>で問題ないのでそうした。</p>
+</li>
+<li>
+<p>Remote-sshの拡張機能のメニュー内のSSH TARGETに接続先が追加されていればOK.</p>
+</li>
+<li>
+<p>ホスト名の右端のアイコンクリック、もしくはホスト名を右クリックしたら接続できる。</p>
+</li>
+</ul>
+<h3 id="laravelの環境をつくる">Laravelの環境をつくる</h3>
+<ul>
+<li>PHPインストール</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln">1</span>$ sudo amazon-linux-extras install php7.4
+<span class="ln">2</span>$ php -v
+<span class="ln">3</span>  PHP 7.4.15 <span class="o">(</span>cli<span class="o">)</span> <span class="o">(</span>built: Feb <span class="m">11</span> <span class="m">2021</span> 17:53:39<span class="o">)</span> <span class="o">(</span> NTS <span class="o">)</span>
+<span class="ln">4</span>  Copyright <span class="o">(</span>c<span class="o">)</span> The PHP Group
+<span class="ln">5</span>  Zend Engine v3.4.0, Copyright <span class="o">(</span>c<span class="o">)</span> Zend Technologies
+<span class="ln">6</span>$
+</code></pre></div><ul>
+<li>Laravelに必要なもろもろをインストール</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln"> 1</span>$ sudo yum install php-mbstring php-pecl-memcached php-gd php-apcu php-xml
+<span class="ln"> 2</span>$ sudo yum install httpd
+<span class="ln"> 3</span><span class="c1"># composerインストール</span>
+<span class="ln"> 4</span>$ curl -sS https://getcomposer.org/installer <span class="p">|</span> php
+<span class="ln"> 5</span>$ sudo mv composer.phar /usr/local/bin/composer
+<span class="ln"> 6</span>
+<span class="ln"> 7</span><span class="c1"># Laravelをインストールする</span>
+<span class="ln"> 8</span>$ <span class="nb">cd</span> /var/www/
+<span class="ln"> 9</span>$ sudo php /usr/local/bin/composer create-project laravel/laravel PROJECT_NAME --prefer-dist
+<span class="ln">10</span>$ <span class="nb">cd</span> PROJECT_NAME/
+<span class="ln">11</span>$ sudo chmod -R <span class="m">777</span> storage
+<span class="ln">12</span>$ sudo chmod -R <span class="m">777</span> bootstrap/cache
+<span class="ln">13</span>$ php artisan --version
+</code></pre></div><ul>
+<li>vhostの設定を行う</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln"> 1</span>$ <span class="nb">cd</span> /etc/httpd/conf.d
+<span class="ln"> 2</span>$ sudo vim vhost.conf
+<span class="ln"> 3</span>
+<span class="ln"> 4</span><span class="c1"># 今回のconfの設定</span>
+<span class="ln"> 5</span>$ cat /etc/httpd/conf.d/vhost.conf
+<span class="ln"> 6</span>  &lt;VirtualHost *:80&gt;
+<span class="ln"> 7</span>      DocumentRoot /var/www/PROJECT_NAME/public       <span class="c1"># Laravelの公開ディレクトリをドキュメントルートに</span>
+<span class="ln"> 8</span>      ServerName ec2-*****.compute-1.amazonaws.com    <span class="c1"># EC2インスタンス情報の「パブリックIPv4 DNS」を設定</span>
+<span class="ln"> 9</span>      ServerAlias ec2-*****.compute-1.amazonaws.com
+<span class="ln">10</span>        <span class="c1">#.htaccessを利用可能にする</span>
+<span class="ln">11</span>        AllowOverride All
+<span class="ln">12</span>        <span class="c1"># Laravelで利用する環境変数を development に設定</span>
+<span class="ln">13</span>        SetEnv APP_ENV development
+<span class="ln">14</span>        <span class="c1">#アクセス許可</span>
+<span class="ln">15</span>        Require all granted
+<span class="ln">16</span>      &lt;/Directory&gt;
+<span class="ln">17</span>  &lt;/VirtualHost&gt;
+<span class="ln">18</span>   $
+</code></pre></div><ul>
+<li>Apacheを起動する</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln">1</span>$ sudo systemctl status httpd  <span class="c1"># inactiveな状態を確認</span>
+<span class="ln">2</span>$ sudo systemctl start httpd
+<span class="ln">3</span>$ sudo systemctl status httpd  <span class="c1"># activeな状態を確認</span>
+</code></pre></div><figure class="center">
+    <img src="/images/hello_Laravel.png" width="50%"/> 
+</figure>
 
-    </li>
-  </ul>
+<p>ひとまずこれで完了。あっという間にできてしまった。</p>
+<h4 id="参考にさせていただいたサイト">参考にさせていただいたサイト</h4>
+<ul>
+<li><a href="https://qiita.com/h19e/items/02d1301d4fdd8dfa88ac">https://qiita.com/h19e/items/02d1301d4fdd8dfa88ac</a></li>
+</ul>
+    </article>
 <aside class="sidebar">
   <section class="sidebar_inner">
     
@@ -161,9 +250,6 @@
         <a href="/notion_api/" class="nav-link" title="Notion APIパブリックベータ版をつかう">Notion APIパブリックベータ版をつかう</a>
       </li>
       <li>
-        <a href="/remote_ssh/" class="nav-link" title="Remote-ssh &#43; EC2でLaravel開発環境">Remote-ssh &#43; EC2でLaravel開発環境</a>
-      </li>
-      <li>
         <a href="/actions/" class="nav-link" title="Actionsで特定のラベルがついたissueをスプレッドシートで管理する">Actionsで特定のラベルがついたissueをスプレッドシートで管理する</a>
       </li>
       <li>
@@ -171,6 +257,9 @@
       </li>
       <li>
         <a href="/mail_header/" class="nav-link" title="メールヘッダーがおもしろい">メールヘッダーがおもしろい</a>
+      </li>
+      <li>
+        <a href="/hugo_thema/" class="nav-link" title="Hugoのテーマのバグを踏んだ">Hugoのテーマのバグを踏んだ</a>
       </li>
     </ul>
     <div>
@@ -253,9 +342,8 @@
   </section>
 </aside>
 
+    
 </div>
-
-
     </main><svg width="0" height="0" class="hidden">
   <symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="facebook">
     <path d="M437 0H75C33.648 0 0 33.648 0 75v362c0 41.352 33.648 75 75 75h151V331h-60v-90h60v-61c0-49.629 40.371-90 90-90h91v90h-91v61h91l-15 90h-76v181h121c41.352 0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zm0 0"></path>

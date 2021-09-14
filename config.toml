@@ -46,6 +46,9 @@ tag = "tags"
     # style = "monokai"
     tabWidth = 2
 
+[permalinks]
+    posts = ":filename"
+
 [params]
 author = "mochi5o"
 twitter = "@mochi5o_maki"

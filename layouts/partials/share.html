@@ -1,8 +1,2 @@
 {{ if and ( ne .Site.Params.showShare false ) ( ne .Params.showShare false ) }}
-{{- $s := T "share_on" }}
-<div class="post_share">
-    <a href="{{ .Permalink }}" title="Copy Link" class="link link_yank">
-        {{ partial "sprite" (dict "icon" "copy") }}
-    </a>
-</div>
 {{- end }}

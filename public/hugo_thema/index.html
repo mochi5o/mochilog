@@ -1,8 +1,8 @@
 
 <!DOCTYPE html>
-<html lang="en" data-figures="">
+<html lang="en" data-figures="" class="page">
   <head>
-<title>LinuC | mochilog</title>
+<title>Hugoのテーマのバグを踏んだ | mochilog</title>
 <meta charset="utf-8">
 <meta name="generator" content="Hugo 0.80.0" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -17,13 +17,15 @@
 <meta property="og:locale" content="en" />
 
 <meta property="og:type" content="article">
-<meta name="description" content="">
+<meta name="description" content="めちゃくちゃ軽微なバグを踏んだので、いい機会だと思ってドキドキしながら初のバグレポートをした話。
+軽微すぎるんですが、シュッと直せるほどの力も余裕もなかったので報告だけです。">
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@mochi5o_maki">
-<meta name="twitter:title" content="LinuC" />
-<meta property="og:url" content="/tags/linuc/" />
-<meta property="og:title" content="LinuC" />
-<meta property="og:description" content="" />
+<meta name="twitter:title" content="Hugoのテーマのバグを踏んだ" />
+<meta property="og:url" content="/hugo_thema/" />
+<meta property="og:title" content="Hugoのテーマのバグを踏んだ" />
+<meta property="og:description" content="めちゃくちゃ軽微なバグを踏んだので、いい機会だと思ってドキドキしながら初のバグレポートをした話。
+軽微すぎるんですが、シュッと直せるほどの力も余裕もなかったので報告だけです。" />
 <meta property="og:image" content="/images/thumbnail.png" />
 <link rel="icon" type="image/png" sizes="32x32" href='/icons/favicon-32x32.png'>
 <link rel="icon" type="image/png" sizes="16x16" href='/icons/favicon-16x16.png'>
@@ -31,7 +33,7 @@
 <link rel="mask-icon" href='/safari-pinned-tab.svg' color="#5bbad5">
 <meta name="msapplication-TileColor" content="#da532c">
 <meta name="theme-color" content="#ffffff">
-<link rel="canonical" href="/tags/linuc/">
+<link rel="canonical" href="/hugo_thema/">
 
     
 
@@ -100,44 +102,39 @@
     <main>
 
 <div class="grid-inverse wrap content">
-  <ul class="posts" id="posts">
-      <li class="post_item">
-  <div class="excerpt">
-    <div class="excerpt_header">
-      <h3 class="post_link">
-        <a href="/decide-to-take-the-linuc-exam/" title="LinuCを受けることに決めた">LinuCを受けることに決めた</a>
-      </h3>
-      <div class="post_meta">
+    <article class="post_content">
+        <h1 class="post_title">Hugoのテーマのバグを踏んだ</h1><div class="post_meta">
   
     <svg class="icon">
   <use xlink:href="#calendar"></use>
 </svg>
     <span class="post_date">
-      Sep 14, 2021</span>
-      <a href='/tags/linuc' title="LinuC" class="post_tag button button_translucent">LinuC
+      Feb 24, 2021</span>
+      <a href='/tags/hugo' title="hugo" class="post_tag button button_translucent">hugo
+      </a>
+      <a href='/tags/oss' title="oss" class="post_tag button button_translucent">oss
       </a>
 </div>
 
-    </div>
-      <div class="excerpt_footer">
-        <div>
-          <p class="pale">
-            
-              <p>LinuCを受験することにしたので決意表明と受験にあたって調べたことの忘備録を残す。</p>
-<p>試験の概要と、試験対策でやろうと思っていることと、今後のざっくりスケジュール。</p>
-            
-          </p>
-          <a href="/decide-to-take-the-linuc-exam/" title="Read More" class="excerpt_more button">Read More</a>
-        </div>
-      </div>
-    </div>
-  </li>
-
-    <li>
-
-
-    </li>
-  </ul>
+        
+        
+        <p>めちゃくちゃ軽微なバグを踏んだので、いい機会だと思ってドキドキしながら初のバグレポートをした話。
+軽微すぎるんですが、シュッと直せるほどの力も余裕もなかったので報告だけです。</p>
+<h3 id="選択したテーマ">選択したテーマ</h3>
+<p>clarityというテーマを選択。</p>
+<p><a href="https://themes.gohugo.io/theme/hugo-clarity/">https://themes.gohugo.io/theme/hugo-clarity</a></p>
+<p>hugoは手元でサーバー立ち上げて確認しながら書けるし、mdで書くので基本的にすごく簡単。
+だったはずが、ひと通りメニューとか整理しおわって「だいたいいいかなー」ってなったタイミングで、あることに気づ。</p>
+<p>なんか、ブログ本文の最後に<strong>true</strong>って謎の文字列？！</p>
+<p>テーマ？それともhugoの設定？というのがパッと分からず「もしかしたらローカル環境でだけ表示される変数なのか…」とかいろいろ考えを巡らせたが、結局テーマ側のバグっぽい。</p>
+<p>どうやら<a href="https://github.com/chipzoller/hugo-clarity/blob/master/layouts/_default/single.html#L26-L36">この辺り</a>のコードがtrueという文字列を出力してしまってるようで、コメント欄を使う予定もないので、全部バッサリ削除することに。</p>
+<p>テーマのカスタマイズ方法は<code>themas/hugo-clarity/layouts</code>の下にあるファイルを、<code>layouts</code>ディレクトリで上書きするということだったので、<code>layouts/_default/single.html</code>を新規作成して、不要な箇所を削除してファイルを設置すると、きれいに<strong>true</strong>が消えてくれた。</p>
+<p>ちなみに、2/23時点では<a href="https://themes.gohugo.io/theme/hugo-clarity/">テーマのDemoサイト</a>でも同様の文字列が出現しているのだけど、同じバグに悩んでる人がいなかったみたいなので直近のコミットで入ったバグをたまたま踏んだのかも…</p>
+<p>ちょうど<a href="https://github.com/chipzoller/hugo-clarity/commit/f368af7333b1eece63925aa0a08bae553e980211#diff-b2ff2a8d1f2a8a15c65288757c8b9acde7bec0ef491acb8048f1ddb61985cc41">3日前のこのコミット</a>だった！</p>
+<p>ということで<a href="https://github.com/chipzoller/hugo-clarity/issues/145">バグレポートのissue</a>を投げてみました。</p>
+<p>OSSにissue投げるの初めてで緊張。
+コメントもらえるかなぁ…と思って朝起きたらすぐ修正してくれてました🙌</p>
+    </article>
 <aside class="sidebar">
   <section class="sidebar_inner">
     
@@ -253,9 +250,8 @@
   </section>
 </aside>
 
+    
 </div>
-
-
     </main><svg width="0" height="0" class="hidden">
   <symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="facebook">
     <path d="M437 0H75C33.648 0 0 33.648 0 75v362c0 41.352 33.648 75 75 75h151V331h-60v-90h60v-61c0-49.629 40.371-90 90-90h91v90h-91v61h91l-15 90h-76v181h121c41.352 0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zm0 0"></path>
