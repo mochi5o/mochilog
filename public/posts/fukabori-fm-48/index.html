@@ -184,7 +184,7 @@ iwashiさんが丁寧にそれぞれの単語を拾ってくれるのもあり�
 <p>シングルトンはいわゆるグローバル変数的な存在（有名人）になってしまいがち。色んな所に引っ張り出されると、呼び出し方を知っておかなくちゃいけないし、どこでどのように呼ばれているか制御できなくて辛いよね、という話。
 コンストラクタインジェクションでインスタンスをnewしたときにシングルトン（有名人）を呼び出すのではなく、インスタンスをnewしたら自動的にそこに必要な人がすでにそこにいる（依存性が注入されている）状態が理想。</p>
 <p>DIコンテナの実装例の話は、かなり単純にして説明してくださっていたようでわかりやすかった。
-ざっくりまとめ</p>
+以下ざっくりまとめ。</p>
 <ul>
 <li>依存関係をコンテナの中に閉じ込めてしまってDIコンテナが汚れ役になる</li>
 <li>DIコンテナの存在を知っているのはmain関数のみ、というような状態にする。</li>
@@ -221,6 +221,9 @@ iwashiさんが丁寧にそれぞれの単語を拾ってくれるのもあり�
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
       <li>
+        <a href="/posts/take-linuc-exam/" class="nav-link" title="LinuCを受けることに決めた">LinuCを受けることに決めた</a>
+      </li>
+      <li>
         <a href="/posts/actions-to-notion/" class="nav-link" title="特定のラベルをつけたissueをNotion上でタスク管理する">特定のラベルをつけたissueをNotion上でタスク管理する</a>
       </li>
       <li>
@@ -241,16 +244,13 @@ iwashiさんが丁寧にそれぞれの単語を拾ってくれるのもあり�
       <li>
         <a href="/posts/hugo_thema/" class="nav-link" title="Hugoのテーマのバグを踏んだ">Hugoのテーマのバグを踏んだ</a>
       </li>
-      <li>
-        <a href="/posts/hello-world/" class="nav-link" title="Hello hugo!!!">Hello hugo!!!</a>
-      </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
       <nav class="tags_nav">
         <a href='/categories/tech/' class="post_tag button button_translucent" title="tech">
           TECH
-          <span class="button_tally">6</span>
+          <span class="button_tally">7</span>
         </a>
         
         <a href='/categories/blog/' class="post_tag button button_translucent" title="blog">
@@ -286,6 +286,11 @@ iwashiさんが丁寧にそれぞれの単語を拾ってくれるのもあり�
         
         <a href='/tags/laravel/' class="post_tag button button_translucent" title="laravel">
           LARAVEL
+          <span class="button_tally">1</span>
+        </a>
+        
+        <a href='/tags/linuc/' class="post_tag button button_translucent" title="linuc">
+          LINUC
           <span class="button_tally">1</span>
         </a>
         
