@@ -4,7 +4,7 @@
   <head>
 <title>メールヘッダーがおもしろい | mochilog</title>
 <meta charset="utf-8">
-<meta name="generator" content="Hugo 0.80.0" />
+<meta name="generator" content="Hugo 0.88.1" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <script async src="https://www.googletagmanager.com/gtag/js?id=XXXXXXXXXX"></script>
@@ -52,8 +52,8 @@
     
     
     <link rel="preload" href="/css/styles.782bf96a82b3cc5b3cee4c47a42cc81321f16960a6d41fab3277c4abe047bc7ae044ea1bb7ae4d237c12baa0143e02f95969e5e8b6e68d9dcfd14158cfa244ac.css" integrity = "sha512-eCv5aoKzzFs87kxHpCzIEyHxaWCm1B&#43;rMnfEq&#43;BHvHrgROobt65NI3wSuqAUPgL5WWnl6LbmjZ3P0UFYz6JErA==" as="style" crossorigin="anonymous">
-    <link rel="preload" href="/js/bundle.min.427ae6e59722ec1fd72b546c654080f8299673123ec8a0b3c403e622e7329e6afcf6bda7f546cba72570a0c45e4936024e972bcb6b9d5a1296c997d98b745f38.js" as="script" integrity=
-    "sha512-Qnrm5Zci7B/XK1RsZUCA&#43;CmWcxI&#43;yKCzxAPmIucynmr89r2n9UbLpyVwoMReSTYCTpcry2udWhKWyZfZi3RfOA==" crossorigin="anonymous">
+    <link rel="preload" href="/js/bundle.min.56424705a2bcd08e3a344c56bb97d5458d061b3ff5885960202d086727d7a1f41130cb88a6e0a72296171022a34416712c1eb32363cf9fda2e2904537cda2c69.js" as="script" integrity=
+    "sha512-VkJHBaK80I46NExWu5fVRY0GGz/1iFlgIC0IZyfXofQRMMuIpuCnIpYXECKjRBZxLB6zI2PPn9ouKQRTfNosaQ==" crossorigin="anonymous">
 
     
     <link rel="stylesheet" type="text/css" href="/css/styles.782bf96a82b3cc5b3cee4c47a42cc81321f16960a6d41fab3277c4abe047bc7ae044ea1bb7ae4d237c12baa0143e02f95969e5e8b6e68d9dcfd14158cfa244ac.css" integrity="sha512-eCv5aoKzzFs87kxHpCzIEyHxaWCm1B&#43;rMnfEq&#43;BHvHrgROobt65NI3wSuqAUPgL5WWnl6LbmjZ3P0UFYz6JErA==" crossorigin="anonymous">
@@ -148,7 +148,7 @@ AmazonからGmailに届いた注文確認メールのヘッダーを例として
 <p>ARCとかDKIMは別途ちゃんとまとめたいな。</p>
 <p><code>X-</code> から始まるヘッダーは拡張フィールド。任意に付与することができる。
 逆に言うとそれ以外は決まったフィールドということ。けっこう種類が多い🤔</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text"><span class="ln"> 1</span>Delivered-To: ******@gmail.com
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="ln"> 1</span>Delivered-To: ******@gmail.com
 <span class="ln"> 2</span>Received: by 2002:ac2:5293:0:0:0:0:0 with SMTP id q19csp113602lfm;
 <span class="ln"> 3</span>        Wed, 7 Apr 2021 22:29:41 -0700 (PDT)
 <span class="ln"> 4</span>X-Google-Smtp-Source: ABdhPJxqmbZpSuBStsM4t7FRkNJT...
@@ -265,7 +265,7 @@ ToとCcはいずれかが必須。</p>
 <h3 id="分割してみていく">分割してみていく</h3>
 <p>下が送信元（＝Amazon）なので、下から分割してちょっとずつ見ていく。</p>
 <p>ここらへんはAmazon側でつけてるヘッダー。</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text"><span class="ln"> 1</span>From: &#34;Amazon.co.jp&#34; &lt;digital-no-reply@amazon.co.jp&gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="ln"> 1</span>From: &#34;Amazon.co.jp&#34; &lt;digital-no-reply@amazon.co.jp&gt;
 <span class="ln"> 2</span>Reply-To: digital-no-reply@amazon.co.jp
 <span class="ln"> 3</span>To: ******@gmail.com
 <span class="ln"> 4</span>Message-ID: &lt;01010178aff52124-***@us-west-2.amazonses.com&gt;
@@ -284,7 +284,7 @@ ToとCcはいずれかが必須。</p>
 <p>ヘッダーの内容の一部は送信者側で変更可能なので、実際に送信しているメールアドレスと異なるメールアドレスから送ったように見せたり、受信者自身と異なるメールアドレス宛に送ったものが届いたように見せることが可能である。</p>
 <p>よくあるのは送信者が自分で自分宛にとどいた！みたいな。このあたりはスパマーがよく使うやつ。</p>
 <p>で、上のほうにいくとGoogleのサーバーがつけるヘッダーがでてくる。一部を抜粋。</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text"><span class="ln"> 1</span>Delivered-To: ******@gmail.com
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="ln"> 1</span>Delivered-To: ******@gmail.com
 <span class="ln"> 2</span>Received: by 2002:ac2:5293:0:0:0:0:0 with SMTP id q19csp113602lfm;
 <span class="ln"> 3</span>        Wed, 7 Apr 2021 22:29:41 -0700 (PDT)
 <span class="ln"> 4</span>X-Google-Smtp-Source: ABdhPJxqmbZpSuBStsM4t7FRkNJT...
@@ -303,7 +303,7 @@ ToとCcはいずれかが必須。</p>
 </code></pre></div><p><code>Received</code>のフィールドを下から順に追っかけていくと、各サーバーに届いた時間が分かるので、これを見るとメールが遅延した場合などに経路上のどこで時間がかかっていたかが分かる。</p>
 <p>一番上の<code>Delivered-To</code>が実際に届けられた最終的な宛先になる。</p>
 <p>Amazonから送られたメールをGmailのサーバーが受け取ったときの<code>Recieved</code>は、今回でいうとこんな感じになってる。見やすいように切り取った。</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text"><span class="ln">1</span>Received: from us-west-2.amazonses.com           # 送信サーバー
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="ln">1</span>Received: from us-west-2.amazonses.com           # 送信サーバー
 <span class="ln">2</span>          by mx.google.com                       # 受信サーバー
 <span class="ln">3</span>          with ESMTPS                            # 通信方式
 <span class="ln">4</span>          id *****725pga.357.2021.04.07          # 識別ID
@@ -337,6 +337,9 @@ ToとCcはいずれかが必須。</p>
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
       <li>
+        <a href="/hello-raspberry-pi/" class="nav-link" title="Hello Raspberry Pi">Hello Raspberry Pi</a>
+      </li>
+      <li>
         <a href="/linux-symlink-and-hardlink/" class="nav-link" title="lnコマンドおさらい">lnコマンドおさらい</a>
       </li>
       <li>
@@ -357,16 +360,13 @@ ToとCcはいずれかが必須。</p>
       <li>
         <a href="/actions/" class="nav-link" title="Actionsで特定のラベルがついたissueをスプレッドシートで管理する">Actionsで特定のラベルがついたissueをスプレッドシートで管理する</a>
       </li>
-      <li>
-        <a href="/spiral_staircase/" class="nav-link" title="らせん階段">らせん階段</a>
-      </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
       <nav class="tags_nav">
         <a href='/categories/tech/' class="post_tag button button_translucent" title="tech">
           TECH
-          <span class="button_tally">8</span>
+          <span class="button_tally">9</span>
         </a>
         
         <a href='/categories/blog/' class="post_tag button button_translucent" title="blog">
@@ -427,6 +427,11 @@ ToとCcはいずれかが必須。</p>
         
         <a href='/tags/others/' class="post_tag button button_translucent" title="others">
           OTHERS
+          <span class="button_tally">1</span>
+        </a>
+        
+        <a href='/tags/raspberry-pi/' class="post_tag button button_translucent" title="raspberry-pi">
+          RASPBERRY-PI
           <span class="button_tally">1</span>
         </a>
         
@@ -518,7 +523,7 @@ ToとCcはいずれかが必須。</p>
   </div>
 </footer>
 
-    <script type="text/javascript" src="/js/bundle.min.427ae6e59722ec1fd72b546c654080f8299673123ec8a0b3c403e622e7329e6afcf6bda7f546cba72570a0c45e4936024e972bcb6b9d5a1296c997d98b745f38.js" integrity="sha512-Qnrm5Zci7B/XK1RsZUCA&#43;CmWcxI&#43;yKCzxAPmIucynmr89r2n9UbLpyVwoMReSTYCTpcry2udWhKWyZfZi3RfOA==" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/js/bundle.min.56424705a2bcd08e3a344c56bb97d5458d061b3ff5885960202d086727d7a1f41130cb88a6e0a72296171022a34416712c1eb32363cf9fda2e2904537cda2c69.js" integrity="sha512-VkJHBaK80I46NExWu5fVRY0GGz/1iFlgIC0IZyfXofQRMMuIpuCnIpYXECKjRBZxLB6zI2PPn9ouKQRTfNosaQ==" crossorigin="anonymous"></script>
     
   </body>
 </html>

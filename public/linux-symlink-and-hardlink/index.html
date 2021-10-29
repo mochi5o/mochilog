@@ -4,7 +4,7 @@
   <head>
 <title>lnコマンドおさらい | mochilog</title>
 <meta charset="utf-8">
-<meta name="generator" content="Hugo 0.80.0" />
+<meta name="generator" content="Hugo 0.88.1" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <script async src="https://www.googletagmanager.com/gtag/js?id=XXXXXXXXXX"></script>
@@ -40,8 +40,8 @@
     
     
     <link rel="preload" href="/css/styles.782bf96a82b3cc5b3cee4c47a42cc81321f16960a6d41fab3277c4abe047bc7ae044ea1bb7ae4d237c12baa0143e02f95969e5e8b6e68d9dcfd14158cfa244ac.css" integrity = "sha512-eCv5aoKzzFs87kxHpCzIEyHxaWCm1B&#43;rMnfEq&#43;BHvHrgROobt65NI3wSuqAUPgL5WWnl6LbmjZ3P0UFYz6JErA==" as="style" crossorigin="anonymous">
-    <link rel="preload" href="/js/bundle.min.427ae6e59722ec1fd72b546c654080f8299673123ec8a0b3c403e622e7329e6afcf6bda7f546cba72570a0c45e4936024e972bcb6b9d5a1296c997d98b745f38.js" as="script" integrity=
-    "sha512-Qnrm5Zci7B/XK1RsZUCA&#43;CmWcxI&#43;yKCzxAPmIucynmr89r2n9UbLpyVwoMReSTYCTpcry2udWhKWyZfZi3RfOA==" crossorigin="anonymous">
+    <link rel="preload" href="/js/bundle.min.56424705a2bcd08e3a344c56bb97d5458d061b3ff5885960202d086727d7a1f41130cb88a6e0a72296171022a34416712c1eb32363cf9fda2e2904537cda2c69.js" as="script" integrity=
+    "sha512-VkJHBaK80I46NExWu5fVRY0GGz/1iFlgIC0IZyfXofQRMMuIpuCnIpYXECKjRBZxLB6zI2PPn9ouKQRTfNosaQ==" crossorigin="anonymous">
 
     
     <link rel="stylesheet" type="text/css" href="/css/styles.782bf96a82b3cc5b3cee4c47a42cc81321f16960a6d41fab3277c4abe047bc7ae044ea1bb7ae4d237c12baa0143e02f95969e5e8b6e68d9dcfd14158cfa244ac.css" integrity="sha512-eCv5aoKzzFs87kxHpCzIEyHxaWCm1B&#43;rMnfEq&#43;BHvHrgROobt65NI3wSuqAUPgL5WWnl6LbmjZ3P0UFYz6JErA==" crossorigin="anonymous">
@@ -129,7 +129,7 @@
 <p>ハードリンク作成時のコマンドは<code>ln リンク元（＝実体） リンクファイル</code>。</p>
 <h3 id="ハードリンクの挙動">ハードリンクの挙動</h3>
 <p>ハードリンクはiノードが全て同じ。また、左から3番目の数字は参照の数を表すので、ハードリンクが増えるたびに数値が増えていることがわかる。</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln"> 1</span>~ ❯❯❯ touch file.original
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="ln"> 1</span>~ ❯❯❯ touch file.original
 <span class="ln"> 2</span>~ ❯❯❯ ln file.original file.hard1
 <span class="ln"> 3</span>~ ❯❯❯ ls -il file*
 <span class="ln"> 4</span><span class="m">70677112</span> -rw-r--r--  <span class="m">2</span> mochiko  <span class="m">2033490572</span>  <span class="m">0</span>  <span class="m">9</span> <span class="m">19</span> 00:11 file.hard1
@@ -141,7 +141,7 @@
 <span class="ln">10</span><span class="m">70677112</span> -rw-r--r--  <span class="m">3</span> mochiko  <span class="m">2033490572</span>  <span class="m">0</span>  <span class="m">9</span> <span class="m">19</span> 00:11 file.original
 <span class="ln">11</span>~ ❯❯❯
 </code></pre></div><p>コピーするとiノードは異なるものになるので編集してもお互い影響を受けない。</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln"> 1</span>~ ❯❯❯ cp -pi file.hard1 file.hard-copy
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="ln"> 1</span>~ ❯❯❯ cp -pi file.hard1 file.hard-copy
 <span class="ln"> 2</span>~ ❯❯❯ ls -il file*
 <span class="ln"> 3</span><span class="m">70677358</span> -rw-r--r--  <span class="m">1</span> mochiko  <span class="m">2033490572</span>  <span class="m">0</span>  <span class="m">9</span> <span class="m">19</span> 00:11 file.hard-copy
 <span class="ln"> 4</span><span class="m">70677112</span> -rw-r--r--  <span class="m">3</span> mochiko  <span class="m">2033490572</span>  <span class="m">0</span>  <span class="m">9</span> <span class="m">19</span> 00:11 file.hard1
@@ -159,7 +159,7 @@
 <span class="ln">16</span>~ ❯❯❯
 </code></pre></div><h3 id="ハードリンクの削除">ハードリンクの削除</h3>
 <p><code>rm ハードリンク</code> or <code>unlink ハードリンク</code>でハードリンクの削除が可能。</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln"> 1</span>~ ❯❯❯ ls -li file.original file.hard*
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="ln"> 1</span>~ ❯❯❯ ls -li file.original file.hard*
 <span class="ln"> 2</span><span class="m">70677358</span> -rw-r--r--  <span class="m">1</span> mochiko  <span class="m">2033490572</span>   <span class="m">0</span>  <span class="m">9</span> <span class="m">19</span> 00:11 file.hard-copy
 <span class="ln"> 3</span><span class="m">70677112</span> -rw-r--r--  <span class="m">3</span> mochiko  <span class="m">2033490572</span>  <span class="m">12</span>  <span class="m">9</span> <span class="m">19</span> 00:49 file.hard1
 <span class="ln"> 4</span><span class="m">70677112</span> -rw-r--r--  <span class="m">3</span> mochiko  <span class="m">2033490572</span>  <span class="m">12</span>  <span class="m">9</span> <span class="m">19</span> 00:49 file.hard2
@@ -180,7 +180,7 @@
 <span class="ln">19</span><span class="m">70677112</span> -rw-r--r--  <span class="m">2</span> mochiko  <span class="m">2033490572</span>  <span class="m">12</span>  <span class="m">9</span> <span class="m">19</span> 00:49 file.original
 <span class="ln">20</span>~ ❯❯❯
 </code></pre></div><p>ハードリンクが削除されてもそのファイルへの参照が残っていればファイルの実体が消えることはない。なので、もともとハードリンクの参照元となっていた<code>file.original</code>を先に削除しても他のハードリンクには影響がない。</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln">1</span>~ ❯❯❯ ls -li file.*
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="ln">1</span>~ ❯❯❯ ls -li file.*
 <span class="ln">2</span><span class="m">70677112</span> -rw-r--r--  <span class="m">2</span> mochiko  <span class="m">2033490572</span>  <span class="m">12</span>  <span class="m">9</span> <span class="m">19</span> 00:49 file.hard
 <span class="ln">3</span><span class="m">70677112</span> -rw-r--r--  <span class="m">2</span> mochiko  <span class="m">2033490572</span>  <span class="m">12</span>  <span class="m">9</span> <span class="m">19</span> 00:49 file.original
 <span class="ln">4</span>~ ❯❯❯ unlink file.original
@@ -191,7 +191,7 @@
 <p>シンボリックリンク作成時のコマンドは<code>ln -s リンク元（＝実体） リンクファイル</code>。</p>
 <h3 id="シンボリックリンクの挙動">シンボリックリンクの挙動</h3>
 <p><code>ls -l</code>で確認するとファイル種別はシンボリックリンクを表す<code>l</code>となり、リンク元のファイル名も取得できている。ハードリンクに対してシンボリックリンクを作成することも可能。</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln"> 1</span>~ ❯❯❯ ln -s file.original file.symlink
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="ln"> 1</span>~ ❯❯❯ ln -s file.original file.symlink
 <span class="ln"> 2</span>~ ❯❯❯ ls -il file.original file.sym*
 <span class="ln"> 3</span><span class="m">70677112</span> -rw-r--r--  <span class="m">3</span> mochiko  <span class="m">2033490572</span>   <span class="m">0</span>  <span class="m">9</span> <span class="m">19</span> 00:11 file.original
 <span class="ln"> 4</span><span class="m">70679436</span> lrwxr-xr-x  <span class="m">1</span> mochiko  <span class="m">2033490572</span>  <span class="m">13</span>  <span class="m">9</span> <span class="m">19</span> 00:31 file.symlink@ -&gt; file.original
@@ -206,14 +206,14 @@
 <span class="ln">13</span><span class="m">70679720</span> lrwxr-xr-x  <span class="m">1</span> mochiko  <span class="m">2033490572</span>  <span class="m">10</span>  <span class="m">9</span> <span class="m">19</span> 00:39 file.symlink2@ -&gt; file.hard2
 <span class="ln">14</span>~ ❯❯❯
 </code></pre></div><p>シンボリックリンクのコピーには、オプションの<code>-d</code>が必要。オプションを付けないでコピーすると、リンク元のファイルの中身をファイルとしてコピーしてしまう。<code>file.symlink-copy</code>のファイル種別がリンクではなく通常ファイルになっているのがわかる。</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln">1</span>~ ❯❯❯ cp file.symlink file.symlink-copy
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="ln">1</span>~ ❯❯❯ cp file.symlink file.symlink-copy
 <span class="ln">2</span>~ ❯❯❯ ls -il file.sym*
 <span class="ln">3</span><span class="m">70679436</span> lrwxr-xr-x  <span class="m">1</span> mochiko  <span class="m">2033490572</span>  <span class="m">13</span>  <span class="m">9</span> <span class="m">19</span> 00:31 file.symlink@ -&gt; file.original
 <span class="ln">4</span><span class="m">70679879</span> -rw-r--r--  <span class="m">1</span> mochiko  <span class="m">2033490572</span>  <span class="m">12</span>  <span class="m">9</span> <span class="m">19</span> 00:42 file.symlink-copy
 <span class="ln">5</span><span class="m">70679720</span> lrwxr-xr-x  <span class="m">1</span> mochiko  <span class="m">2033490572</span>  <span class="m">10</span>  <span class="m">9</span> <span class="m">19</span> 00:39 file.symlink2@ -&gt; file.hard2
 <span class="ln">6</span>~ ❯❯❯
 </code></pre></div><p>次の例のふたつは一見同じに見えるが、上段はシンボリックリンクのリンク元である<code>file.original</code>をcatしたもので、下段は先ほどの-dなしのシンボリックリンクのコピーによって<code>file.original</code>の内容が<code>file.symlink-copy</code>のファイルに書き込まれたものをcatしている。リンク元のデータが書き換わっても完全に別のファイルとして存在している<code>file.symlink-copy</code>は影響を受けない。</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln"> 1</span>~ ❯❯❯ cat file.symlink
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="ln"> 1</span>~ ❯❯❯ cat file.symlink
 <span class="ln"> 2</span>Hello Linux
 <span class="ln"> 3</span>~ ❯❯❯ cat file.symlink-copy
 <span class="ln"> 4</span>Hello Linux
@@ -227,7 +227,7 @@
 </code></pre></div><h3 id="シンボリックリンクの削除">シンボリックリンクの削除</h3>
 <p><code>rm シンボリックリンク</code> or <code>unlink シンボリックリンク</code>で削除が可能。シンボリックリンクを単純に削除したい場合はunlinkコマンドを利用する方が安全。
 rmコマンドを使う際は<code>rm file.symlink/</code>とスラッシュを付けて実行するとリンクの参照先のファイル自体が削除されてしまうので注意が必要である。</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln"> 1</span>~ ❯❯❯ rm file.symlink
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="ln"> 1</span>~ ❯❯❯ rm file.symlink
 <span class="ln"> 2</span>~ ❯❯❯ ls -li file.original file.sym*
 <span class="ln"> 3</span><span class="m">70677112</span> -rw-r--r--  <span class="m">2</span> mochiko  <span class="m">2033490572</span>  <span class="m">12</span>  <span class="m">9</span> <span class="m">19</span> 00:49 file.original
 <span class="ln"> 4</span><span class="m">70679879</span> -rw-r--r--  <span class="m">1</span> mochiko  <span class="m">2033490572</span>  <span class="m">12</span>  <span class="m">9</span> <span class="m">19</span> 00:42 file.symlink-copy
@@ -241,7 +241,7 @@ rmコマンドを使う際は<code>rm file.symlink/</code>とスラッシュを�
 <span class="ln">12</span><span class="m">70679720</span> lrwxr-xr-x  <span class="m">1</span> mochiko  <span class="m">2033490572</span>  <span class="m">10</span>  <span class="m">9</span> <span class="m">19</span> 00:39 file.symlink2@ -&gt; file.hard2
 <span class="ln">13</span>~ ❯❯❯
 </code></pre></div><p>スラッシュをつけて実行するとリンク元のファイル<code>file.hard2</code>自体が削除されている。その結果、<code>file.symlink2</code>は参照する先がなくてエラーを生じる。</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln"> 1</span>~ ❯❯❯ ls -li file.*
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="ln"> 1</span>~ ❯❯❯ ls -li file.*
 <span class="ln"> 2</span><span class="m">70677358</span> -rw-r--r--  <span class="m">1</span> mochiko  <span class="m">2033490572</span>   <span class="m">0</span>  <span class="m">9</span> <span class="m">19</span> 00:11 file.hard-copy
 <span class="ln"> 3</span><span class="m">70677112</span> -rw-r--r--  <span class="m">2</span> mochiko  <span class="m">2033490572</span>  <span class="m">12</span>  <span class="m">9</span> <span class="m">19</span> 00:49 file.hard2
 <span class="ln"> 4</span><span class="m">70677112</span> -rw-r--r--  <span class="m">2</span> mochiko  <span class="m">2033490572</span>  <span class="m">12</span>  <span class="m">9</span> <span class="m">19</span> 00:49 file.original
@@ -275,6 +275,9 @@ rmコマンドを使う際は<code>rm file.symlink/</code>とスラッシュを�
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
       <li>
+        <a href="/hello-raspberry-pi/" class="nav-link" title="Hello Raspberry Pi">Hello Raspberry Pi</a>
+      </li>
+      <li>
         <a href="/decide-to-take-the-linuc-exam/" class="nav-link" title="LinuCを受けることに決めた">LinuCを受けることに決めた</a>
       </li>
       <li>
@@ -295,16 +298,13 @@ rmコマンドを使う際は<code>rm file.symlink/</code>とスラッシュを�
       <li>
         <a href="/spiral_staircase/" class="nav-link" title="らせん階段">らせん階段</a>
       </li>
-      <li>
-        <a href="/mail_header/" class="nav-link" title="メールヘッダーがおもしろい">メールヘッダーがおもしろい</a>
-      </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
       <nav class="tags_nav">
         <a href='/categories/tech/' class="post_tag button button_translucent" title="tech">
           TECH
-          <span class="button_tally">8</span>
+          <span class="button_tally">9</span>
         </a>
         
         <a href='/categories/blog/' class="post_tag button button_translucent" title="blog">
@@ -365,6 +365,11 @@ rmコマンドを使う際は<code>rm file.symlink/</code>とスラッシュを�
         
         <a href='/tags/others/' class="post_tag button button_translucent" title="others">
           OTHERS
+          <span class="button_tally">1</span>
+        </a>
+        
+        <a href='/tags/raspberry-pi/' class="post_tag button button_translucent" title="raspberry-pi">
+          RASPBERRY-PI
           <span class="button_tally">1</span>
         </a>
         
@@ -456,7 +461,7 @@ rmコマンドを使う際は<code>rm file.symlink/</code>とスラッシュを�
   </div>
 </footer>
 
-    <script type="text/javascript" src="/js/bundle.min.427ae6e59722ec1fd72b546c654080f8299673123ec8a0b3c403e622e7329e6afcf6bda7f546cba72570a0c45e4936024e972bcb6b9d5a1296c997d98b745f38.js" integrity="sha512-Qnrm5Zci7B/XK1RsZUCA&#43;CmWcxI&#43;yKCzxAPmIucynmr89r2n9UbLpyVwoMReSTYCTpcry2udWhKWyZfZi3RfOA==" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/js/bundle.min.56424705a2bcd08e3a344c56bb97d5458d061b3ff5885960202d086727d7a1f41130cb88a6e0a72296171022a34416712c1eb32363cf9fda2e2904537cda2c69.js" integrity="sha512-VkJHBaK80I46NExWu5fVRY0GGz/1iFlgIC0IZyfXofQRMMuIpuCnIpYXECKjRBZxLB6zI2PPn9ouKQRTfNosaQ==" crossorigin="anonymous"></script>
     
   </body>
 </html>

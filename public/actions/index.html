@@ -4,7 +4,7 @@
   <head>
 <title>Actionsで特定のラベルがついたissueをスプレッドシートで管理する | mochilog</title>
 <meta charset="utf-8">
-<meta name="generator" content="Hugo 0.80.0" />
+<meta name="generator" content="Hugo 0.88.1" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <script async src="https://www.googletagmanager.com/gtag/js?id=XXXXXXXXXX"></script>
@@ -44,8 +44,8 @@
     
     
     <link rel="preload" href="/css/styles.782bf96a82b3cc5b3cee4c47a42cc81321f16960a6d41fab3277c4abe047bc7ae044ea1bb7ae4d237c12baa0143e02f95969e5e8b6e68d9dcfd14158cfa244ac.css" integrity = "sha512-eCv5aoKzzFs87kxHpCzIEyHxaWCm1B&#43;rMnfEq&#43;BHvHrgROobt65NI3wSuqAUPgL5WWnl6LbmjZ3P0UFYz6JErA==" as="style" crossorigin="anonymous">
-    <link rel="preload" href="/js/bundle.min.427ae6e59722ec1fd72b546c654080f8299673123ec8a0b3c403e622e7329e6afcf6bda7f546cba72570a0c45e4936024e972bcb6b9d5a1296c997d98b745f38.js" as="script" integrity=
-    "sha512-Qnrm5Zci7B/XK1RsZUCA&#43;CmWcxI&#43;yKCzxAPmIucynmr89r2n9UbLpyVwoMReSTYCTpcry2udWhKWyZfZi3RfOA==" crossorigin="anonymous">
+    <link rel="preload" href="/js/bundle.min.56424705a2bcd08e3a344c56bb97d5458d061b3ff5885960202d086727d7a1f41130cb88a6e0a72296171022a34416712c1eb32363cf9fda2e2904537cda2c69.js" as="script" integrity=
+    "sha512-VkJHBaK80I46NExWu5fVRY0GGz/1iFlgIC0IZyfXofQRMMuIpuCnIpYXECKjRBZxLB6zI2PPn9ouKQRTfNosaQ==" crossorigin="anonymous">
 
     
     <link rel="stylesheet" type="text/css" href="/css/styles.782bf96a82b3cc5b3cee4c47a42cc81321f16960a6d41fab3277c4abe047bc7ae044ea1bb7ae4d237c12baa0143e02f95969e5e8b6e68d9dcfd14158cfa244ac.css" integrity="sha512-eCv5aoKzzFs87kxHpCzIEyHxaWCm1B&#43;rMnfEq&#43;BHvHrgROobt65NI3wSuqAUPgL5WWnl6LbmjZ3P0UFYz6JErA==" crossorigin="anonymous">
@@ -131,13 +131,13 @@
 <h3 id="issueで特定のラベルが付いたらアクションを実行">issueで特定のラベルが付いたらアクションを実行</h3>
 <p>これは調べたら割とすぐ出てきた。
 まず、issueにラベルが付与されたときに実行する方法は、こんなかんじ。</p>
-<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="ln">1</span><span class="nt">on</span><span class="p">:</span><span class="w">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="ln">1</span><span class="nt">on</span><span class="p">:</span><span class="w">
 </span><span class="ln">2</span><span class="w">  </span><span class="nt">issues</span><span class="p">:</span><span class="w">
 </span><span class="ln">3</span><span class="w">    </span><span class="nt">types</span><span class="p">:</span><span class="w">
 </span><span class="ln">4</span><span class="w">      </span><span class="p">[</span><span class="s1">&#39;labeled&#39;</span><span class="p">]</span><span class="w">
 </span></code></pre></div><p>これでラベルが付与されたときに実行されるアクションがつくれる。
 特定のラベルがついたときだけに限定したい場合は、つづけて条件を記載することもできる。</p>
-<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="ln">1</span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="ln">1</span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
 </span><span class="ln">2</span><span class="sd">  </span><span class="w">  </span><span class="l">(github.event.label.name == &#39;wontfix&#39;) || (github.event.label.name == &#39;bug&#39;)</span><span class="w">
 </span></code></pre></div><h3 id="日付の取得">日付の取得</h3>
 <p>アクションが実行される日時をこんなふうに取得できる。
@@ -145,7 +145,7 @@ Tokyoにタイムゾーンを設定しておけばOK。</p>
 <p>当初はちょっと別の目的もあったので、ラベルがついた日時をスプレッドシート側に持っておきたかった。</p>
 <p>最終的な今回の目的に照らせば、別にこの方法でなくてもどうとでもなりそう。
 GAS側でPOSTされた日時を得ることも可能だし…</p>
-<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="ln">1</span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Setup timezone</span><span class="w">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="ln">1</span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Setup timezone</span><span class="w">
 </span><span class="ln">2</span><span class="w">  </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">zcong1993/setup-timezone@master</span><span class="w">
 </span><span class="ln">3</span><span class="w">  </span><span class="nt">with</span><span class="p">:</span><span class="w">
 </span><span class="ln">4</span><span class="w">    </span><span class="nt">timezone</span><span class="p">:</span><span class="w"> </span><span class="l">Asia/Tokyo</span><span class="w">
@@ -158,7 +158,7 @@ doPostという関数が用意されてるので、そこにデータを突っ�
 <p>スプレッドシートからスクリプトエディタを起動して、編集→保存→デプロイする。
 すべてのユーザーに公開しないとcurlからたたけないので注意。</p>
 <p>IDEの自動保存に慣れてしまっている私は、保存を忘れて変更が反映されてないままデプロイする、というのを数回繰り返してしまった。</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="ln"> 1</span><span class="kd">function</span> <span class="nx">doPost</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="ln"> 1</span><span class="kd">function</span> <span class="nx">doPost</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
 <span class="ln"> 2</span>  <span class="kd">var</span> <span class="nx">ss</span>       <span class="o">=</span> <span class="nx">SpreadsheetApp</span><span class="p">.</span><span class="nx">getActiveSpreadsheet</span><span class="p">();</span>
 <span class="ln"> 3</span>  <span class="kd">var</span> <span class="nx">sheet</span>    <span class="o">=</span> <span class="nx">ss</span><span class="p">.</span><span class="nx">getSheetByName</span><span class="p">(</span><span class="s1">&#39;issue data&#39;</span><span class="p">);</span>
 <span class="ln"> 4</span>  <span class="kd">var</span> <span class="nx">PostData</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">postData</span><span class="p">.</span><span class="nx">contents</span><span class="p">);</span>
@@ -179,7 +179,7 @@ doPostという関数が用意されてるので、そこにデータを突っ�
 <p>GitHubのissueにコメントをPOSTするにはアクセストークンが必要なので別途用意して、リポジトリのsecretsに設定している。
 <code>${{ secrets.ACCESS_TOKEN }}</code> という形でsecretsの値は取得できる。</p>
 <p>おなじく先程デプロイしたURLもsecretsに保存しておいて、そこに対してデータをPOSTする。</p>
-<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="ln"> 1</span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Data post</span><span class="w">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="ln"> 1</span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Data post</span><span class="w">
 </span><span class="ln"> 2</span><span class="w">  </span><span class="nt">env</span><span class="p">:</span><span class="w">
 </span><span class="ln"> 3</span><span class="w">    </span><span class="nt">GITHUB_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.ACCESS_TOKEN }}</span><span class="w">
 </span><span class="ln"> 4</span><span class="w">    </span><span class="nt">URL</span><span class="p">:</span><span class="w"> </span><span class="l">${{ github.event.issue.url }}</span><span class="w">
@@ -194,19 +194,16 @@ doPostという関数が用意されてるので、そこにデータを突っ�
 </span></code></pre></div><h2 id="実行結果">実行結果</h2>
 <p>こういうかんじで、ラベルをつけるとすぐにActionsがはしる。
 ラベルの下のコメントはActionsからPOSTされたもの。</p>
-<figure class="center">
-    <img src="/images/labeled_issue.jpg" width="80%"/> 
+<figure class="center"><img src="/images/labeled_issue.jpg" width="80%"/>
 </figure>
 
 <p>Actionsタブで実行の様子が確認できる。
-<figure class="center">
-    <img src="/images/labeled_actions.jpg" width="80%"/> 
+<figure class="center"><img src="/images/labeled_actions.jpg" width="80%"/>
 </figure>
 </p>
 <p>スプレッドシートに追加された。
 こちらで更に詳細な分類を入力して、Datastudioとかに突っ込んで分析に役立てることができる。
-<figure class="center">
-    <img src="/images/result_spreadsheet.jpg" width="80%"/> 
+<figure class="center"><img src="/images/result_spreadsheet.jpg" width="80%"/>
 </figure>
 </p>
 <p><a href="https://github.com/mochi5o/issue-labeled-action">リポジトリ</a></p>
@@ -221,6 +218,9 @@ doPostという関数が用意されてるので、そこにデータを突っ�
       <a href='/about/' class="button mt-1" role="button" title='Read More'>Read More</a>
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
+      <li>
+        <a href="/hello-raspberry-pi/" class="nav-link" title="Hello Raspberry Pi">Hello Raspberry Pi</a>
+      </li>
       <li>
         <a href="/linux-symlink-and-hardlink/" class="nav-link" title="lnコマンドおさらい">lnコマンドおさらい</a>
       </li>
@@ -242,16 +242,13 @@ doPostという関数が用意されてるので、そこにデータを突っ�
       <li>
         <a href="/spiral_staircase/" class="nav-link" title="らせん階段">らせん階段</a>
       </li>
-      <li>
-        <a href="/mail_header/" class="nav-link" title="メールヘッダーがおもしろい">メールヘッダーがおもしろい</a>
-      </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
       <nav class="tags_nav">
         <a href='/categories/tech/' class="post_tag button button_translucent" title="tech">
           TECH
-          <span class="button_tally">8</span>
+          <span class="button_tally">9</span>
         </a>
         
         <a href='/categories/blog/' class="post_tag button button_translucent" title="blog">
@@ -312,6 +309,11 @@ doPostという関数が用意されてるので、そこにデータを突っ�
         
         <a href='/tags/others/' class="post_tag button button_translucent" title="others">
           OTHERS
+          <span class="button_tally">1</span>
+        </a>
+        
+        <a href='/tags/raspberry-pi/' class="post_tag button button_translucent" title="raspberry-pi">
+          RASPBERRY-PI
           <span class="button_tally">1</span>
         </a>
         
@@ -403,7 +405,7 @@ doPostという関数が用意されてるので、そこにデータを突っ�
   </div>
 </footer>
 
-    <script type="text/javascript" src="/js/bundle.min.427ae6e59722ec1fd72b546c654080f8299673123ec8a0b3c403e622e7329e6afcf6bda7f546cba72570a0c45e4936024e972bcb6b9d5a1296c997d98b745f38.js" integrity="sha512-Qnrm5Zci7B/XK1RsZUCA&#43;CmWcxI&#43;yKCzxAPmIucynmr89r2n9UbLpyVwoMReSTYCTpcry2udWhKWyZfZi3RfOA==" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/js/bundle.min.56424705a2bcd08e3a344c56bb97d5458d061b3ff5885960202d086727d7a1f41130cb88a6e0a72296171022a34416712c1eb32363cf9fda2e2904537cda2c69.js" integrity="sha512-VkJHBaK80I46NExWu5fVRY0GGz/1iFlgIC0IZyfXofQRMMuIpuCnIpYXECKjRBZxLB6zI2PPn9ouKQRTfNosaQ==" crossorigin="anonymous"></script>
     
   </body>
 </html>
